@@ -1,6 +1,7 @@
 # Consulti — B2B + Local Database Campaign
 
 **Target:** Marketing agencies and PR companies
+**Bison campaign:** `Marketing - B2B & Local Data Base (7/26)` (ID 1009)
 **Structure:** 4 emails · 4 variants on E1 (2 local, 2 B2B) · 1 variant per database on E2, E3, E4
 **Cadence:** Day 1 → wait 2 → wait 3 → wait 4 · plain text ON · open tracking OFF
 
@@ -18,13 +19,13 @@ This campaign runs **two parallel tracks**:
 ## Lead magnets
 
 1. **Custom list** built for their city and business type (LOCAL) or their target companies (B2B) — the primary ask
-2. **No cost month of pro access** so they can pull their own
+2. **No cost month of pro** so they can pull their own
 3. **~20 prebuilt B2B lists** at `consulti.ai/free-leads`, no signup (E3 B2B only). Note: this page is **B2B only** — never describe it as local or creator data.
 
 ## Copy rules
 
-- Say **"no cost"**, never "free" (spam-filter trigger). Only exception is the `/free-leads` URL.
-- The platform is **paid** — only the gifted month is free. Frame as "I can share a no cost month", never "it's free".
+- Avoid **"free"**, **"no cost"**, **"compare"**, **"offer"** (noun) — all flagged shady/money by the Mailmeteor checker. Use `on us`, `put it next to`, `a month of pro`, `still happy to help`. The `/free-leads` URL is fine.
+- The platform is **paid** — only the gifted month is free. Frame as "I can share a month on us", never "it's free".
 - **No em dashes.**
 - **Do not invent pain points.** Earlier drafts claimed agencies scrape Google Maps by hand and rely on referrals. Neither holds, and both read as condescending to people who market for a living. Pains must be real or hedged as a question.
 - Not all recipients are agencies — avoid assuming agency workflows.
@@ -40,7 +41,7 @@ This campaign runs **two parallel tracks**:
 **Subject:** `gem for your business`
 
 ```
-{Hi|Hey|Hello} {FIRST_NAME},<br><br>Is the source of leads a bottleneck for you at the moment?<br><br>{If so, I can help there|If it is, I can help there}. We've got local business owners' direct emails, sorted by city and type of business.<br><br>Not a bottleneck? Still worth having a database you can trust sitting there for when you need it.<br><br>Either way, {happy to share a no cost month so you can try it properly|I can share a no cost month so you can try it properly}.<br><br>{Want me to|Should I}?<br><br>{Best|Cheers|Thanks},<br>{SENDER_EMAIL_SIGNATURE}<br><br>PS: {can just pull you a sample list first if you'd rather see the data before anything else|happy to pull you a sample list first if you'd rather see the data first}.
+{Hi|Hey|Hello} {FIRST_NAME},<br><br>Is the source of leads a bottleneck for you at the moment?<br><br>{If so, I can help there|If it is, I can help there}. We've got local business owners' direct emails, sorted by city and type of business.<br><br>Not a bottleneck? Still worth having a database you can trust sitting there for when you need it.<br><br>Either way, {happy to share a month on us so you can try it properly|I can share a month on us so you can try it properly}.<br><br>{Want me to|Should I}?<br><br>{Best|Cheers|Thanks},<br>{SENDER_EMAIL_SIGNATURE}<br><br>PS: {can just pull you a sample list first if you'd rather see the data before anything else|happy to pull you a sample list first if you'd rather see the data first}.
 ```
 
 > Hey Alana,
@@ -51,7 +52,7 @@ This campaign runs **two parallel tracks**:
 >
 > Not a bottleneck? Still worth having a database you can trust sitting there for when you need it.
 >
-> Either way, happy to share a no cost month so you can try it properly.
+> Either way, happy to share a month on us so you can try it properly.
 >
 > Want me to?
 >
@@ -68,7 +69,7 @@ This campaign runs **two parallel tracks**:
 **Subject:** `{FIRST_NAME}, question on your business`
 
 ```
-{Hi|Hey|Hello} {FIRST_NAME},<br><br>Most business listings only give you a general inbox. Ours have the owner's own email.<br><br>5M+ local businesses, searchable by city and type. {Happy to pull you a list if there's something specific you're after|I can pull you a list if there's something specific you're after}.<br><br>{Want me to|Should I}?<br><br>{Best|Cheers|Thanks},<br>{SENDER_EMAIL_SIGNATURE}<br><br>PS: {can include a month of pro access if you'd rather pull them yourself|can add a month of pro access if you'd rather pull them yourself}.
+{Hi|Hey|Hello} {FIRST_NAME},<br><br>Most business listings only give you a general inbox. Ours have the owner's own email.<br><br>5M+ local businesses, searchable by city and type. {Happy to pull you a list if there's something specific you're after|I can pull you a list if there's something specific you're after}.<br><br>{Want me to|Should I}?<br><br>{Best|Cheers|Thanks},<br>{SENDER_EMAIL_SIGNATURE}<br><br>PS: {can include a month of pro on us if you'd rather pull them yourself|happy to add a month of pro on us if you'd rather pull them yourself}.
 ```
 
 > Hey Alana,
@@ -82,7 +83,7 @@ This campaign runs **two parallel tracks**:
 > Best,
 > [signature]
 >
-> PS: can include a month of pro access if you'd rather pull them yourself.
+> PS: can include a month of pro on us if you'd rather pull them yourself.
 
 ---
 
@@ -92,7 +93,7 @@ This campaign runs **two parallel tracks**:
 **Subject:** `think we should talk`
 
 ```
-{Hi|Hey|Hello} {FIRST_NAME},<br><br>We've got a database of business contacts you can narrow down to the kind of companies you want, and to the person you'd actually want to reach there.<br><br>{If you tell me roughly who you're after, I can pull you a list|Tell me roughly who you're after and I can pull you a list}.<br><br>{Want me to|Should I}?<br><br>{Best|Cheers|Thanks},<br>{SENDER_EMAIL_SIGNATURE}<br><br>PS: {can add a month of pro access if you'd rather pull your own|can include a month of pro access if you'd rather pull your own}.
+{Hi|Hey|Hello} {FIRST_NAME},<br><br>We've got a database of business contacts you can narrow down to the kind of companies you want, and to the person you'd actually want to reach there.<br><br>{If you tell me roughly who you're after, I can pull you a list|Tell me roughly who you're after and I can pull you a list}.<br><br>{Want me to|Should I}?<br><br>{Best|Cheers|Thanks},<br>{SENDER_EMAIL_SIGNATURE}<br><br>PS: {can add a month of pro on us if you'd rather pull your own|happy to include a month of pro on us if you'd rather pull your own}.
 ```
 
 > Hey Alana,
@@ -106,7 +107,7 @@ This campaign runs **two parallel tracks**:
 > Best,
 > [signature]
 >
-> PS: can add a month of pro access if you'd rather pull your own.
+> PS: can add a month of pro on us if you'd rather pull your own.
 
 ---
 
@@ -116,7 +117,7 @@ This campaign runs **two parallel tracks**:
 **Subject:** `found something for you {FIRST_NAME}`
 
 ```
-{Hi|Hey|Hello} {FIRST_NAME},<br><br>Quick note on what we have: a platform with 10M+ business contacts, the people who actually decide rather than general inboxes, all kept up to date.<br><br>{If you tell me the kind of companies you want to reach, I can pull you a list out of it|Tell me the kind of companies you want to reach and I can pull you a list out of it}.<br><br>{Want me to|Should I}?<br><br>{Best|Cheers|Thanks},<br>{SENDER_EMAIL_SIGNATURE}<br><br>PS: {can include a month of pro access if you'd rather dig through it yourself|can add a month of pro access if you'd rather look through it yourself}.
+{Hi|Hey|Hello} {FIRST_NAME},<br><br>Quick note on what we have: a platform with 10M+ business contacts, the people who actually decide rather than general inboxes, all kept up to date.<br><br>{If you tell me the kind of companies you want to reach, I can pull you a list out of it|Tell me the kind of companies you want to reach and I can pull you a list out of it}.<br><br>{Want me to|Should I}?<br><br>{Best|Cheers|Thanks},<br>{SENDER_EMAIL_SIGNATURE}<br><br>PS: {can include a month of pro on us if you'd rather dig through it yourself|happy to add a month of pro on us if you'd rather look through it yourself}.
 ```
 
 > Hey Alana,
@@ -130,7 +131,7 @@ This campaign runs **two parallel tracks**:
 > Best,
 > [signature]
 >
-> PS: can include a month of pro access if you'd rather dig through it yourself.
+> PS: can include a month of pro on us if you'd rather dig through it yourself.
 
 ---
 
@@ -176,12 +177,12 @@ This campaign runs **two parallel tracks**:
 **Subject:** `one for you {FIRST_NAME}`
 
 ```
-{Hi|Hey|Hello} {FIRST_NAME},<br><br>If you'd rather have a look yourself, I can give you a month of pro access. You can pull local owner lists directly, any city or type of business.<br><br>{Want the link|Want me to send the link}?<br><br>{Best|Cheers|Thanks},<br>{SENDER_EMAIL_SIGNATURE}
+{Hi|Hey|Hello} {FIRST_NAME},<br><br>If you'd rather have a look yourself, I can give you a month of pro on us. You can pull local owner lists directly, any city or type of business.<br><br>{Want the link|Want me to send the link}?<br><br>{Best|Cheers|Thanks},<br>{SENDER_EMAIL_SIGNATURE}
 ```
 
 > Hey Alana,
 >
-> If you'd rather have a look yourself, I can give you a month of pro access. You can pull local owner lists directly, any city or type of business.
+> If you'd rather have a look yourself, I can give you a month of pro on us. You can pull local owner lists directly, any city or type of business.
 >
 > Want the link?
 
@@ -233,12 +234,12 @@ This campaign runs **two parallel tracks**:
 **Subject:** `wrapping up {FIRST_NAME}`
 
 ```
-{Hi|Hey|Hello} {FIRST_NAME},<br><br>Last note from me. Offer's open if you want a list of contacts for whoever you're trying to reach.<br><br>{Still interested|Still want one}?<br><br>{And if someone else handles new business, happy to talk to them instead|If it's someone else's call over there, point me their way}.<br><br>{Best|Cheers|Thanks},<br>{SENDER_EMAIL_SIGNATURE}
+{Hi|Hey|Hello} {FIRST_NAME},<br><br>Last note from me. Still happy to pull you a list of contacts for whoever you're trying to reach.<br><br>{Still interested|Still want one}?<br><br>{And if someone else handles new business, happy to talk to them instead|If it's someone else's call over there, point me their way}.<br><br>{Best|Cheers|Thanks},<br>{SENDER_EMAIL_SIGNATURE}
 ```
 
 > Hey Alana,
 >
-> Last note from me. Offer's open if you want a list of contacts for whoever you're trying to reach.
+> Last note from me. Still happy to pull you a list of contacts for whoever you're trying to reach.
 >
 > Still interested?
 >
