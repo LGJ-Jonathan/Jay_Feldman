@@ -7,7 +7,7 @@
 ## Before launch
 - [ ] Run Clay enrichment for `{CLIENT_NICHE}` (see Enrichment fields below) and `{SERVICE}` (main service, lowercase, e.g. "SEO", "paid ads", fallback `marketing`)
 - [ ] Re-verify every 300-contact list before sending it
-- [ ] Enrich `{COWORKER_NAME_2}` for Variant B (one other person at the same domain, first name only, not the lead). Route leads without one to Variant A or C
+- [ ] Enrich `{COWORKER_NAME_2}` for Variant B (one other person at the same domain, first name only, not the lead). Route leads without one to Variant A
 - [ ] Confirm the gifted month of Consulti is still available and have the gift link ready for Email 3 yeses
 - [ ] Pre-build one verified 300-contact list per `{CLIENT_NICHE}` value before launch (after Clay, group leads by niche; also build a `small businesses` list for the fallback). Re-verify each list the week it goes out.
 - [ ] Reply to a yes by sending the matching niche list right away, no qualifying question: "Here you go: [link to {CLIENT_NICHE} list]. 300 verified contacts, ready to load. Works for pitching new {CLIENT_NICHE} clients or for a client campaign in that space. Let me know how it lands."
@@ -16,24 +16,21 @@
 
 ## Email 1 (day 0)
 
-### Variant A: time pain
+### Variant A: original winner (campaign 1145, step 7164, body unchanged)
 ```
 Subject: {{FIRST_NAME}, a list for one of your clients|{CLIENT_NICHE} list|list of {CLIENT_NICHE} for {COMPANY}}
 
-{Hi|Hey|Hello} {FIRST_NAME}, saw {COMPANY} does {SERVICE} for {CLIENT_NICHE}.
+{Hi|Hey} {FIRST_NAME}, noticed {COMPANY} runs outbound for clients. {My guess is sourcing the list is what slows a launch down.|My guess is the list is the part that slows a launch down.}
 
-{My guess is|Guessing|I'd bet} sourcing a clean list of {CLIENT_NICHE} eats a few hours every time.
+I can {put together|pull together} 500 verified prospects for one of them and send it over, on me.
 
-I can pull you 300 verified contacts at {CLIENT_NICHE} from our platform, on us. {Use them to land your next client or for a client campaign.|Use them for your own outreach or a client's.|Yours to use however you like.}
+{Want me to?|Want me to pull it?}
 
-{Want them?|Want me to pull them?|Interested?}
-
-{Best|Cheers|Thanks},
 {SENDER_EMAIL_SIGNATURE}
 ```
 
 ### Variant B: right-person opener
-Only send to leads where Clay found a coworker (one other person at the same company, first name only). Leads without one get Variant A or C.
+Only send to leads where Clay found a coworker (one other person at the same company, first name only). Leads without one get Variant A.
 ```
 Subject: {{FIRST_NAME}, a list for one of your clients|{CLIENT_NICHE} list|list of {CLIENT_NICHE} for {COMPANY}}
 
@@ -44,34 +41,6 @@ I can pull 300 verified contacts at {CLIENT_NICHE} for {COMPANY}, on us. {Enough
 {Should I send them over?|Interested?}
 
 {Best|Cheers|Thanks},
-{SENDER_EMAIL_SIGNATURE}
-```
-
-### Variant B2: right-person opener, friendlier version
-Same routing as Variant B (only leads with a coworker name).
-```
-Subject: {{FIRST_NAME}, a list for one of your clients|{CLIENT_NICHE} list|list of {CLIENT_NICHE} for {COMPANY}}
-
-{Hey|Hi} {FIRST_NAME}, {not sure if this is more up your alley or {COWORKER_NAME_2}'s|wasn't sure if this is more for you or {COWORKER_NAME_2}}, so I figured I'd start with you.
-
-I'd be happy to pull 300 verified contacts at {CLIENT_NICHE} for {COMPANY}, on us. {Could be handy for landing your next client or a client campaign, and saves you the hours of sourcing.|Might come in handy for your next client or a client campaign, minus the hours of sourcing.}
-
-{Want me to send them your way, or would {COWORKER_NAME_2} be the better fit?|Should I send them to you, or is {COWORKER_NAME_2} the better person?}
-
-{Thanks|Cheers|Best},
-{SENDER_EMAIL_SIGNATURE}
-```
-
-### Variant C: control (original winner from campaign 1145, step 7164, unchanged)
-```
-Subject: {{FIRST_NAME}, a list for one of your clients|{CLIENT_NICHE} list|list of {CLIENT_NICHE} for {COMPANY}}
-
-{Hi|Hey} {FIRST_NAME}, noticed {COMPANY} runs outbound for clients. {My guess is sourcing the list is what slows a launch down.|My guess is the list is the part that slows a launch down.}
-
-I can {put together|pull together} 500 verified prospects for one of them and send it over, on me.
-
-{Want me to?|Want me to pull it?}
-
 {SENDER_EMAIL_SIGNATURE}
 ```
 
@@ -132,6 +101,41 @@ Last note from me. The {CLIENT_NICHE} list is still yours, or local owners with 
 {Want the list, the month, or should I leave it here?|List, month, or leave it here?}
 
 {Best|Cheers|Talk soon},
+{SENDER_EMAIL_SIGNATURE}
+```
+
+---
+
+## Parked Email 1 variants (not in this launch)
+
+### Time pain
+```
+Subject: {{FIRST_NAME}, a list for one of your clients|{CLIENT_NICHE} list|list of {CLIENT_NICHE} for {COMPANY}}
+
+{Hi|Hey|Hello} {FIRST_NAME}, saw {COMPANY} does {SERVICE} for {CLIENT_NICHE}.
+
+{My guess is|Guessing|I'd bet} sourcing a clean list of {CLIENT_NICHE} eats a few hours every time.
+
+I can pull you 300 verified contacts at {CLIENT_NICHE} from our platform, on us. {Use them to land your next client or for a client campaign.|Use them for your own outreach or a client's.|Yours to use however you like.}
+
+{Want them?|Want me to pull them?|Interested?}
+
+{Best|Cheers|Thanks},
+{SENDER_EMAIL_SIGNATURE}
+```
+
+### Right-person opener, friendlier version
+Same routing as Variant B (only leads with a coworker name).
+```
+Subject: {{FIRST_NAME}, a list for one of your clients|{CLIENT_NICHE} list|list of {CLIENT_NICHE} for {COMPANY}}
+
+{Hey|Hi} {FIRST_NAME}, {not sure if this is more up your alley or {COWORKER_NAME_2}'s|wasn't sure if this is more for you or {COWORKER_NAME_2}}, so I figured I'd start with you.
+
+I'd be happy to pull 300 verified contacts at {CLIENT_NICHE} for {COMPANY}, on us. {Could be handy for landing your next client or a client campaign, and saves you the hours of sourcing.|Might come in handy for your next client or a client campaign, minus the hours of sourcing.}
+
+{Want me to send them your way, or would {COWORKER_NAME_2} be the better fit?|Should I send them to you, or is {COWORKER_NAME_2} the better person?}
+
+{Thanks|Cheers|Best},
 {SENDER_EMAIL_SIGNATURE}
 ```
 
