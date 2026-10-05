@@ -1,0 +1,177 @@
+{
+ "lists": {
+  "auto-dealerships.csv": {
+   "rows": 295,
+   "domains": 290,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "website",
+    "phone",
+    "city",
+    "state",
+    "email"
+   ]
+  },
+  "cannabis-brands.csv": {
+   "rows": 145,
+   "domains": 139,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "website",
+    "phone",
+    "city",
+    "state",
+    "email"
+   ]
+  },
+  "ecommerce-brands.csv": {
+   "rows": 300,
+   "domains": 284,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "linkedin_url",
+    "city",
+    "state",
+    "email"
+   ]
+  },
+  "energy-companies.csv": {
+   "rows": 300,
+   "domains": 290,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "linkedin_url",
+    "city",
+    "state",
+    "email"
+   ]
+  },
+  "financial-services-firms.csv": {
+   "rows": 300,
+   "domains": 293,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "linkedin_url",
+    "city",
+    "state",
+    "email"
+   ]
+  },
+  "healthcare-companies.csv": {
+   "rows": 300,
+   "domains": 290,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "website",
+    "phone",
+    "city",
+    "state",
+    "email"
+   ]
+  },
+  "home-service-companies.csv": {
+   "rows": 300,
+   "domains": 296,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "website",
+    "phone",
+    "city",
+    "state",
+    "email"
+   ]
+  },
+  "law-firms.csv": {
+   "rows": 300,
+   "domains": 296,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "website",
+    "phone",
+    "city",
+    "state",
+    "email"
+   ]
+  },
+  "manufacturing-companies.csv": {
+   "rows": 300,
+   "domains": 292,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "linkedin_url",
+    "city",
+    "state",
+    "email"
+   ]
+  },
+  "marketing---advertising.csv": {
+   "rows": 300,
+   "domains": 292,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "linkedin_url",
+    "city",
+    "state",
+    "email"
+   ]
+  },
+  "media-and-entertainment-companies.csv": {
+   "rows": 300,
+   "domains": 295,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "linkedin_url",
+    "city",
+    "state",
+    "email"
+   ]
+  },
+  "nonprofits.csv": {
+   "rows": 300,
+   "domains": 299,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "linkedin_url",
+    "city",
+    "state",
+    "email"
+   ]
+  }
+ }
+}

@@ -126,6 +126,8 @@ def main():
         limit = int(sys.argv[sys.argv.index("--limit") + 1])
 
     nmap = json.loads((ROOT / "consulti-niche-filter-map.json").read_text())
+    mpath = ROOT / "scripts" / "list-manifest.json"
+    manifest = json.loads(mpath.read_text())["lists"] if mpath.exists() else {}
     state = load_state()
     handled = set(state["handled_reply_ids"])
 
@@ -175,15 +177,26 @@ def main():
         attach = None
         note = ""
         if cls == "industry":
-            src_file = LISTS / f"{slug(niche)}.csv"
-            if src_file.exists():
-                n = sum(1 for _ in open(src_file)) - 1
-                if n < MIN_ROWS:
-                    note = f"BLOCKED: cached list has only {n} rows, floor is {MIN_ROWS}"
-                else:
-                    attach = f"{slug(niche)}.csv"
-                    shutil.copy(src_file, batch / "attachments" / attach)
+            fname = f"{slug(niche)}.csv"
+            src_file = LISTS / fname
+            # The CSVs are gitignored, so a cloud run has the manifest but not the
+            # files. Either one proves the list exists; only a local run can copy it.
+            shelf = manifest.get(fname)
+            if src_file.exists() or shelf:
+                if src_file.exists():
                     hdr = open(src_file).readline().strip().split(",")
+                    n = sum(1 for _ in open(src_file)) - 1
+                else:
+                    hdr = shelf["columns"]
+                    n = shelf["rows"]
+                if n < MIN_ROWS:
+                    note = f"BLOCKED: list has only {n} rows, floor is {MIN_ROWS}"
+                else:
+                    attach = fname
+                    if src_file.exists():
+                        shutil.copy(src_file, batch / "attachments" / attach)
+                    else:
+                        note = "list is on the shelf; attach it from Leads/fulfillment/lists at send time"
                     pretty = {"first_name": "name", "last_name": None, "title": "title",
                               "company": "company", "linkedin_url": "LinkedIn",
                               "website": "website", "phone": "phone", "city": "city",
@@ -193,7 +206,7 @@ def main():
                     draft = DELIVERY_DRAFT.format(first_name=f["first_name"] or "there",
                                                   rows=n, niche=niche, columns=columns)
             else:
-                note = f"NEEDS LIST BUILD: no cached file at lists/{slug(niche)}.csv"
+                note = f"NEEDS LIST BUILD: nothing on the shelf at lists/{fname}"
         elif cls == "geo":
             note = "NEEDS PER-LEAD BUILD: geo niche, requires their city/state and a Consulti pull"
         elif cls == "intent":
