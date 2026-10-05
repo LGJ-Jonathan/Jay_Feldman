@@ -1,0 +1,50 @@
+{
+  "_meta": {
+    "purpose": "Maps a Bison lead's niche variable to the Consulti search that builds their give-first list.",
+    "built": "2026-10-05",
+    "source": "The 40 resolvable niche values found on the 56 interested leads across Bison campaigns 1298, 1313, 1315, 1145 (Consulti workspace).",
+    "niche_source_chain": ["signal_topic", "niche", "industry", "client_niche"],
+    "industry_enum": "https://www.consulti.ai/api/v1/meta/industries (146 values, free, no auth)",
+    "classes": {
+      "industry": "Maps to a Consulti industries[] filter. Pre-build one 300-row CSV per entry.",
+      "geo": "No industry. Needs the lead's own city/state. Built per-lead from /local-leads/search.",
+      "intent": "A buying signal, not an industry. Consulti has no filter for it. Do NOT auto-send; ask the lead what industry their clients are in."
+    },
+    "defaults": { "size": 300, "emailStatus": "good", "countries": ["United States"] }
+  },
+
+  "industry": {
+    "auto dealerships":        { "endpoint": "/leads/search",       "industries": ["Automotive"], "titles": ["Owner", "General Manager", "Marketing Manager"] },
+    "law firms":               { "endpoint": "/leads/search",       "industries": ["Law Practice", "Legal Services"], "titles": ["Owner", "Partner", "Managing Partner"] },
+    "ecommerce brands":        { "endpoint": "/leads/search",       "industries": ["Retail", "Consumer Goods", "Apparel & Fashion", "Internet"], "titles": ["Owner", "Founder", "Head of Ecommerce", "Marketing Director"] },
+    "healthcare companies":    { "endpoint": "/leads/search",       "industries": ["Hospital & Health Care", "Health, Wellness & Fitness"], "titles": ["Owner", "Practice Manager", "Marketing Director"] },
+    "nonprofits":              { "endpoint": "/leads/search",       "industries": ["Nonprofit Organization Management"], "titles": ["Executive Director", "Development Director", "Marketing Director"] },
+    "manufacturing companies": { "endpoint": "/leads/search",       "industries": ["Electrical/Electronic Manufacturing", "Industrial Automation", "Machinery"], "titles": ["Owner", "President", "Marketing Manager"] },
+    "home service companies":  { "endpoint": "/local-leads/search", "categories": ["HVAC contractor", "Plumber", "Roofing contractor", "Electrician", "Landscaper"], "note": "Local DB beats B2B here. Trades are under-covered in the 500M B2B set." },
+    "financial services firms":{ "endpoint": "/leads/search",       "industries": ["Financial Services", "Capital Markets"], "titles": ["Owner", "Principal", "Managing Director"] },
+    "energy companies":        { "endpoint": "/leads/search",       "industries": ["Oil & Energy", "Renewables & Environment"], "titles": ["Owner", "President", "Marketing Director"] },
+    "media and entertainment companies": { "endpoint": "/leads/search", "industries": ["Entertainment", "Media Production", "Broadcast Media", "Online Media"], "titles": ["Owner", "Founder", "Marketing Director"] },
+    "marketing & advertising": { "endpoint": "/leads/search",       "industries": ["Marketing & Advertising"], "titles": ["Owner", "Founder", "CEO"], "note": "Their clients are other agencies. Confirm this is really the niche and not a mis-enrichment of the lead's OWN industry." },
+    "cannabis brands":         { "endpoint": "/local-leads/search", "categories": ["Cannabis store", "Cannabis dispensary"], "note": "No Consulti industry enum for cannabis. Local DB only." }
+  },
+
+  "geo": {
+    "_build": "Per-lead, not pre-built. Read the lead's city/state from its own enrichment, then /local-leads/search in that metro. Never trust Bison's city/state fields (known bad: city 'England', state 'Arkansas').",
+    "small businesses":              { "endpoint": "/local-leads/search", "needs": ["city", "state"] },
+    "local businesses":              { "endpoint": "/local-leads/search", "needs": ["city", "state"] },
+    "small and medium-sized businesses": { "endpoint": "/leads/search", "empMin": 10, "empMax": 200, "needs": ["state"] },
+    "b2b businesses":                { "endpoint": "/leads/search", "empMin": 10, "empMax": 500, "needs": ["state"], "note": "Widest possible read. Treat as a clarify case if the lead is high value." }
+  },
+
+  "intent": {
+    "_handling": "No list is auto-sent for these. The reply asks one question: what industry are the clients you want this for? The answer is then run through the industry map above.",
+    "companies planning a website redesign": {},
+    "companies planning a rebrand": {},
+    "companies investing in digital marketing": {},
+    "companies producing video content": {},
+    "companies needing creative support": {},
+    "companies investing in seo": {},
+    "companies looking for ecommerce marketing": {},
+    "companies looking for fractional cmo services": {}
+  }
+}

@@ -1,0 +1,3 @@
+# Prospect PII — never commit lead or suppression data
+Leads/
+*.csv
