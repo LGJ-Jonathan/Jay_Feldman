@@ -67,6 +67,19 @@ def slug(s):
     return "".join(c if c.isalnum() else "-" for c in s.lower()).strip("-")
 
 
+def clean_reply(body):
+    """The lead's own words, without the quoted thread underneath."""
+    out = []
+    for line in body.splitlines():
+        t = line.strip()
+        if t.startswith(">"):
+            break
+        if t.lower().startswith(("on ", "from:", "-----original")) and "wrote:" in t.lower():
+            break
+        out.append(line)
+    return "\n".join(out).strip()[:1500]
+
+
 def resolve_niche(lead):
     cv = {c["name"]: (c.get("value") or "").strip()
           for c in (lead.get("custom_variables") or [])}
@@ -133,7 +146,7 @@ def main():
                               "lead_id": lead["id"], "email": lead.get("email"),
                               "first_name": lead.get("first_name"), "company": lead.get("company"),
                               "received": r.get("date_received"),
-                              "reply_text": (r.get("text_body") or "")[:600]})
+                              "reply_text": clean_reply(r.get("text_body") or "")})
             total = d.get("meta", {}).get("total", 0)
             if page * 15 >= total:
                 break
@@ -195,7 +208,8 @@ def main():
 
         dpath = batch / "drafts" / f"{f['reply_id']}.txt"
         dpath.write_text(draft)
-        f.update(attachment=attach, note=note, draft_file=str(dpath.relative_to(batch)))
+        f.update(attachment=attach, note=note, draft=draft,
+                 draft_file=str(dpath.relative_to(batch)))
         rows.append(f)
 
     ready = [r for r in rows if r["attachment"]]
