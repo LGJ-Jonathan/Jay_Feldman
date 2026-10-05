@@ -88,7 +88,7 @@ def classify(niche, nmap):
 
 DELIVERY_DRAFT = """Hi {first_name},
 
-Here it is, attached. {rows} verified contacts at {niche}, with name, title, company, LinkedIn, city and a verified email for each one.
+Here it is, attached. {rows} verified contacts at {niche}, with {columns} for each one.
 
 It's yours to use however you like, for your own outreach or a client's. No strings.
 
@@ -170,8 +170,15 @@ def main():
                 else:
                     attach = f"{slug(niche)}.csv"
                     shutil.copy(src_file, batch / "attachments" / attach)
+                    hdr = open(src_file).readline().strip().split(",")
+                    pretty = {"first_name": "name", "last_name": None, "title": "title",
+                              "company": "company", "linkedin_url": "LinkedIn",
+                              "website": "website", "phone": "phone", "city": "city",
+                              "state": None, "email": "a verified email"}
+                    cols = [pretty[h] for h in hdr if pretty.get(h)]
+                    columns = ", ".join(cols[:-1]) + " and " + cols[-1]
                     draft = DELIVERY_DRAFT.format(first_name=f["first_name"] or "there",
-                                                  rows=n, niche=niche)
+                                                  rows=n, niche=niche, columns=columns)
             else:
                 note = f"NEEDS LIST BUILD: no cached file at lists/{slug(niche)}.csv"
         elif cls == "geo":

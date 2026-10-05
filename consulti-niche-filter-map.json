@@ -3,39 +3,227 @@
     "purpose": "Maps a Bison lead's niche variable to the Consulti search that builds their give-first list.",
     "built": "2026-10-05",
     "source": "The 40 resolvable niche values found on the 56 interested leads across Bison campaigns 1298, 1313, 1315, 1145 (Consulti workspace).",
-    "niche_source_chain": ["signal_topic", "niche", "industry", "client_niche"],
+    "niche_source_chain": [
+      "signal_topic",
+      "niche",
+      "industry",
+      "client_niche"
+    ],
     "industry_enum": "https://www.consulti.ai/api/v1/meta/industries (146 values, free, no auth)",
     "classes": {
       "industry": "Maps to a Consulti industries[] filter. Pre-build one 300-row CSV per entry.",
       "geo": "No industry. Needs the lead's own city/state. Built per-lead from /local-leads/search.",
       "intent": "A buying signal, not an industry. Consulti has no filter for it. Do NOT auto-send; ask the lead what industry their clients are in."
     },
-    "defaults": { "size": 300, "emailStatus": "good", "countries": ["United States"] }
+    "defaults": {
+      "size": 300,
+      "emailStatus": "good",
+      "countries": [
+        "United States"
+      ]
+    },
+    "local_params": "/local-leads/search takes keywords[] (not categories[]), states[] as 2-letter codes only, cities[], hasEmail, page, size. No native exclusion; dedupe on google_place_id client-side.",
+    "routing_rule": "Local brick-and-mortar business types go to /local-leads/search with Google Maps category keywords; the LinkedIn industry enum is too loose for them and returns suppliers and national chains. Genuine B2B niches go to /leads/search with empMin/empMax so an agency gets prospects its size, not the Fortune 500.",
+    "local_rows": "Local rows carry owner_name, owner_title, website and phone but NO LinkedIn. Rows without an owner_name are dropped so every contact has a real name."
   },
-
   "industry": {
-    "auto dealerships":        { "endpoint": "/leads/search",       "industries": ["Automotive"], "titles": ["Owner", "General Manager", "Marketing Manager"] },
-    "law firms":               { "endpoint": "/leads/search",       "industries": ["Law Practice", "Legal Services"], "titles": ["Owner", "Partner", "Managing Partner"] },
-    "ecommerce brands":        { "endpoint": "/leads/search",       "industries": ["Retail", "Consumer Goods", "Apparel & Fashion", "Internet"], "titles": ["Owner", "Founder", "Head of Ecommerce", "Marketing Director"] },
-    "healthcare companies":    { "endpoint": "/leads/search",       "industries": ["Hospital & Health Care", "Health, Wellness & Fitness"], "titles": ["Owner", "Practice Manager", "Marketing Director"] },
-    "nonprofits":              { "endpoint": "/leads/search",       "industries": ["Nonprofit Organization Management"], "titles": ["Executive Director", "Development Director", "Marketing Director"] },
-    "manufacturing companies": { "endpoint": "/leads/search",       "industries": ["Electrical/Electronic Manufacturing", "Industrial Automation", "Machinery"], "titles": ["Owner", "President", "Marketing Manager"] },
-    "home service companies":  { "endpoint": "/local-leads/search", "categories": ["HVAC contractor", "Plumber", "Roofing contractor", "Electrician", "Landscaper"], "note": "Local DB beats B2B here. Trades are under-covered in the 500M B2B set." },
-    "financial services firms":{ "endpoint": "/leads/search",       "industries": ["Financial Services", "Capital Markets"], "titles": ["Owner", "Principal", "Managing Director"] },
-    "energy companies":        { "endpoint": "/leads/search",       "industries": ["Oil & Energy", "Renewables & Environment"], "titles": ["Owner", "President", "Marketing Director"] },
-    "media and entertainment companies": { "endpoint": "/leads/search", "industries": ["Entertainment", "Media Production", "Broadcast Media", "Online Media"], "titles": ["Owner", "Founder", "Marketing Director"] },
-    "marketing & advertising": { "endpoint": "/leads/search",       "industries": ["Marketing & Advertising"], "titles": ["Owner", "Founder", "CEO"], "note": "Their clients are other agencies. Confirm this is really the niche and not a mis-enrichment of the lead's OWN industry." },
-    "cannabis brands":         { "endpoint": "/local-leads/search", "categories": ["Cannabis store", "Cannabis dispensary"], "note": "No Consulti industry enum for cannabis. Local DB only." }
+    "auto dealerships": {
+      "endpoint": "/local-leads/search",
+      "keywords": [
+        "Car dealer",
+        "Used car dealer",
+        "Auto broker"
+      ],
+      "note": "Local DB only. The B2B Automotive industry filter returns tire makers, auto auctions and General Motors; measured 174/300 even auto-related."
+    },
+    "law firms": {
+      "endpoint": "/local-leads/search",
+      "keywords": [
+        "Law firm",
+        "Attorney",
+        "Personal injury attorney",
+        "Immigration attorney",
+        "Family law attorney"
+      ],
+      "note": "Local DB only. B2B Law Practice returns Perkins Coie and Akerman LLP, national firms a small agency cannot sell to."
+    },
+    "healthcare companies": {
+      "endpoint": "/local-leads/search",
+      "keywords": [
+        "Medical clinic",
+        "Dentist",
+        "Chiropractor",
+        "Physical therapist",
+        "Med spa"
+      ],
+      "note": "Read as local practices, which is what an agency's healthcare clients actually are."
+    },
+    "home service companies": {
+      "endpoint": "/local-leads/search",
+      "keywords": [
+        "HVAC contractor",
+        "Plumber",
+        "Roofing contractor",
+        "Electrician",
+        "Landscaper"
+      ],
+      "note": "Trades are under-covered in the 500M B2B set."
+    },
+    "cannabis brands": {
+      "endpoint": "/local-leads/search",
+      "keywords": [
+        "Cannabis store",
+        "Cannabis dispensary"
+      ],
+      "note": "No Consulti industry enum for cannabis."
+    },
+    "ecommerce brands": {
+      "endpoint": "/leads/search",
+      "industries": [
+        "Retail",
+        "Consumer Goods",
+        "Apparel & Fashion",
+        "Internet"
+      ],
+      "titles": [
+        "Owner",
+        "Founder",
+        "Head of Ecommerce",
+        "Marketing Director",
+        "Ecommerce Manager"
+      ],
+      "empMin": 5,
+      "empMax": 500
+    },
+    "manufacturing companies": {
+      "endpoint": "/leads/search",
+      "industries": [
+        "Electrical/Electronic Manufacturing",
+        "Industrial Automation",
+        "Machinery",
+        "Building Materials"
+      ],
+      "titles": [
+        "Owner",
+        "President",
+        "Marketing Manager",
+        "Marketing Director"
+      ],
+      "empMin": 10,
+      "empMax": 500
+    },
+    "financial services firms": {
+      "endpoint": "/leads/search",
+      "industries": [
+        "Financial Services",
+        "Capital Markets"
+      ],
+      "titles": [
+        "Owner",
+        "Principal",
+        "Managing Director",
+        "Founder"
+      ],
+      "empMin": 5,
+      "empMax": 200,
+      "note": "empMax keeps the national banks out."
+    },
+    "energy companies": {
+      "endpoint": "/leads/search",
+      "industries": [
+        "Oil & Energy",
+        "Renewables & Environment"
+      ],
+      "titles": [
+        "Owner",
+        "President",
+        "Marketing Director",
+        "Founder"
+      ],
+      "empMin": 10,
+      "empMax": 500
+    },
+    "media and entertainment companies": {
+      "endpoint": "/leads/search",
+      "industries": [
+        "Entertainment",
+        "Media Production",
+        "Broadcast Media",
+        "Online Media"
+      ],
+      "titles": [
+        "Owner",
+        "Founder",
+        "Marketing Director",
+        "President"
+      ],
+      "empMin": 5,
+      "empMax": 500
+    },
+    "nonprofits": {
+      "endpoint": "/leads/search",
+      "industries": [
+        "Nonprofit Organization Management"
+      ],
+      "titles": [
+        "Executive Director",
+        "Development Director",
+        "Marketing Director",
+        "Founder"
+      ],
+      "empMin": 5,
+      "empMax": 500
+    },
+    "marketing & advertising": {
+      "endpoint": "/leads/search",
+      "industries": [
+        "Marketing & Advertising"
+      ],
+      "titles": [
+        "Owner",
+        "Founder",
+        "CEO",
+        "President"
+      ],
+      "empMin": 5,
+      "empMax": 200,
+      "note": "Their clients are other agencies. Confirm this is really the niche and not a mis-enrichment of the lead's OWN industry."
+    }
   },
-
   "geo": {
     "_build": "Per-lead, not pre-built. Read the lead's city/state from its own enrichment, then /local-leads/search in that metro. Never trust Bison's city/state fields (known bad: city 'England', state 'Arkansas').",
-    "small businesses":              { "endpoint": "/local-leads/search", "needs": ["city", "state"] },
-    "local businesses":              { "endpoint": "/local-leads/search", "needs": ["city", "state"] },
-    "small and medium-sized businesses": { "endpoint": "/leads/search", "empMin": 10, "empMax": 200, "needs": ["state"] },
-    "b2b businesses":                { "endpoint": "/leads/search", "empMin": 10, "empMax": 500, "needs": ["state"], "note": "Widest possible read. Treat as a clarify case if the lead is high value." }
+    "small businesses": {
+      "endpoint": "/local-leads/search",
+      "needs": [
+        "city",
+        "state"
+      ]
+    },
+    "local businesses": {
+      "endpoint": "/local-leads/search",
+      "needs": [
+        "city",
+        "state"
+      ]
+    },
+    "small and medium-sized businesses": {
+      "endpoint": "/leads/search",
+      "empMin": 10,
+      "empMax": 200,
+      "needs": [
+        "state"
+      ]
+    },
+    "b2b businesses": {
+      "endpoint": "/leads/search",
+      "empMin": 10,
+      "empMax": 500,
+      "needs": [
+        "state"
+      ],
+      "note": "Widest possible read. Treat as a clarify case if the lead is high value."
+    }
   },
-
   "intent": {
     "_handling": "No list is auto-sent for these. The reply asks one question: what industry are the clients you want this for? The answer is then run through the industry map above.",
     "companies planning a website redesign": {},
