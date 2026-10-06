@@ -31,6 +31,11 @@ ALLOWLIST = {
 NICHE_CHAIN = ["signal_topic", "niche", "industry", "client_niche"]
 MIN_ROWS = 150
 
+# A month of Consulti, included in every reply. Client copy rule: "on us" or
+# "gift you a month", never "free". The reply agent only permits links to
+# consulti.ai, which this is.
+GIFT_LINK = "https://www.consulti.ai/gift/3dcc92fa-643e-40bf-a014-8c3edca4bbab"
+
 OUT = ROOT / "Leads" / "fulfillment"
 LISTS = OUT / "lists"
 STATE = ROOT / "scripts" / "fulfillment-state.json"  # in-repo: reply ids only, no PII, so
@@ -125,16 +130,21 @@ Here it is, attached. {rows} verified contacts at {niche}, with {columns} for ea
 
 It's yours to use however you like, for your own outreach or a client's. No strings.
 
-If it's useful and you'd rather pull your own whenever a client launch comes up, I can gift you a month of Consulti so you can do it yourself in a few clicks.
+I've also put a month of Consulti on us, so you can pull a list like this yourself whenever a client launch comes up:
+{gift}
 
 Anything you'd want cut differently, just say so and I'll redo it.
 """
+
 
 QUESTION_DRAFT = """Hi {first_name},
 
 Happy to pull it.
 
-What kind of businesses do you want them to be? Give me the industry and a city or state if it matters, and I'll put the list together and send it over.
+What kind of businesses do you want them to be? Give me the industry, and a city or state if that matters, and I'll put the list together and send it over.
+
+Either way, here's a month of Consulti on us so you can pull lists yourself in the meantime:
+{gift}
 """
 
 
@@ -225,7 +235,8 @@ def main():
                     cols = [pretty[h] for h in hdr if pretty.get(h)]
                     columns = ", ".join(cols[:-1]) + " and " + cols[-1]
                     draft = DELIVERY_DRAFT.format(first_name=f["first_name"] or "there",
-                                                  rows=n, niche=niche, columns=columns)
+                                                  rows=n, niche=niche, columns=columns,
+                                                  gift=GIFT_LINK)
             else:
                 note = f"NEEDS LIST BUILD: nothing on the shelf at lists/{fname}"
         elif cls == "geo":
@@ -238,7 +249,8 @@ def main():
             note = f"UNMAPPED niche '{niche}'. Add it to consulti-niche-filter-map.json"
 
         if not attach:
-            draft = QUESTION_DRAFT.format(first_name=f["first_name"] or "there")
+            draft = QUESTION_DRAFT.format(first_name=f["first_name"] or "there",
+                                          gift=GIFT_LINK)
         if f.get("answered"):
             note = ("ALREADY ANSWERED by the live replier on " +
                     (f.get("answered_at") or "an earlier date") +
