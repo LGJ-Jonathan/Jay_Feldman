@@ -67,6 +67,26 @@ def slug(s):
     return "".join(c if c.isalnum() else "-" for c in s.lower()).strip("-")
 
 
+def thread_state(reply_id):
+    """Has anyone already answered this lead? Guards against a second email.
+
+    A live replier on this workspace answers as "Amy" within minutes, usually
+    with the generic consulti.ai/free-leads page. Any outgoing message after
+    the lead's reply means this thread is already spoken for.
+    """
+    d = api(f"/replies/{reply_id}/conversation-thread")
+    if not d:
+        return {"answered": None, "answered_text": "", "lead_pushed_back": False}
+    newer = (d.get("data", d) or {}).get("newer_messages") or []
+    sent = [m for m in newer if m.get("type") == "Outgoing Email"]
+    back = [m for m in newer if m.get("type") == "Tracked Reply"]
+    return {"answered": bool(sent),
+            "answered_text": clean_reply((sent[0].get("text_body") or "")) if sent else "",
+            "answered_at": (sent[0].get("date_received") or "")[:10] if sent else "",
+            "lead_pushed_back": bool(back),
+            "pushback_text": clean_reply((back[0].get("text_body") or "")) if back else ""}
+
+
 def clean_reply(body):
     """The lead's own words, without the quoted thread underneath."""
     out = []
@@ -171,6 +191,7 @@ def main():
         if not lead:
             continue
         src, niche, cv = resolve_niche(lead["data"])
+        f.update(thread_state(f["reply_id"]))
         cls, spec = classify(niche, nmap)
         f.update(niche=niche, niche_source=src, cls=cls)
 
@@ -218,6 +239,10 @@ def main():
 
         if not attach:
             draft = QUESTION_DRAFT.format(first_name=f["first_name"] or "there")
+        if f.get("answered"):
+            note = ("ALREADY ANSWERED by the live replier on " +
+                    (f.get("answered_at") or "an earlier date") +
+                    ". Sending now would be a second email. " + note).strip()
 
         dpath = batch / "drafts" / f"{f['reply_id']}.txt"
         dpath.write_text(draft)

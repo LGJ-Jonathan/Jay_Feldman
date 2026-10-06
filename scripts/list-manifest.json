@@ -16,8 +16,8 @@
    ]
   },
   "cannabis-brands.csv": {
-   "rows": 145,
-   "domains": 139,
+   "rows": 144,
+   "domains": 138,
    "columns": [
     "first_name",
     "last_name",
