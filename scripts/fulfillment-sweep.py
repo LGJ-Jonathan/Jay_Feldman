@@ -32,9 +32,13 @@ NICHE_CHAIN = ["signal_topic", "niche", "industry", "client_niche"]
 MIN_ROWS = 150
 
 # A month of Consulti, included in every reply. Client copy rule: "on us" or
-# "gift you a month", never "free". The reply agent only permits links to
-# consulti.ai, which this is.
-GIFT_LINK = "https://www.consulti.ai/gift/3dcc92fa-643e-40bf-a014-8c3edca4bbab"
+# "gift you a month", never "free".
+#
+# Gift links are SINGLE REDEMPTION, so the draft carries a placeholder and the
+# sender claims one unused code from the dashboard's pool at send time. Baking a
+# code into every draft would burn one per draft instead of one per reply sent,
+# and the second lead to click a reused link gets a dead page.
+GIFT_TOKEN = "{{GIFT_CODE}}"
 
 OUT = ROOT / "Leads" / "fulfillment"
 LISTS = OUT / "lists"
@@ -236,7 +240,7 @@ def main():
                     columns = ", ".join(cols[:-1]) + " and " + cols[-1]
                     draft = DELIVERY_DRAFT.format(first_name=f["first_name"] or "there",
                                                   rows=n, niche=niche, columns=columns,
-                                                  gift=GIFT_LINK)
+                                                  gift=GIFT_TOKEN)
             else:
                 note = f"NEEDS LIST BUILD: nothing on the shelf at lists/{fname}"
         elif cls == "geo":
@@ -250,7 +254,7 @@ def main():
 
         if not attach:
             draft = QUESTION_DRAFT.format(first_name=f["first_name"] or "there",
-                                          gift=GIFT_LINK)
+                                          gift=GIFT_TOKEN)
         if f.get("answered"):
             note = ("ALREADY ANSWERED by the live replier on " +
                     (f.get("answered_at") or "an earlier date") +

@@ -144,3 +144,55 @@ today, 8 need a per-lead geo build, and the rest need the clarifying question.
    ~3,600 lead credits, one time. Live-per-reply is 300 every time, forever.
 4. **Fix the Clutch enrichment** so `niche` carries an industry, not a buying signal. Otherwise every
    future Clutch campaign reproduces the intent-class problem at scale.
+
+---
+
+## Sending an approved reply
+
+`scripts/send-approved.py` is the only script here that can email a prospect. One
+reply per invocation, only for a row Shara approved on the dashboard.
+
+```
+BISON_API_KEY=... python3 scripts/send-approved.py \
+    --reply-id 6835890 --body-file /tmp/body.txt \
+    --attach Leads/fulfillment/lists/ecommerce-brands.csv [--dry-run]
+```
+
+The Bison endpoint, discovered by probing it with deliberately invalid requests
+(2026-10-05): `POST /api/replies/{id}/reply` as multipart/form-data, with
+`message`, `sender_email_id`, `to_emails[0][email_address]`, and
+`attachments[0]` as a real file. csv is an accepted type. `reply_all: true`
+substitutes for the sender and recipient fields.
+
+Guards, each one tested:
+
+| Guard | Verified behaviour |
+|---|---|
+| `scripts/sender.off` exists | refuses, killswitch |
+| reply id in `scripts/sent-log.json` | refuses, one send per reply ever |
+| `automated_reply` on re-fetch | refuses |
+| thread already answered | refuses, and names when it was answered |
+| `{{GIFT_CODE}}` still in the body | refuses |
+| body over 1500 chars, or empty | refuses |
+| daily cap, default 25 | refuses |
+| the POST | never retried; it is not idempotent |
+
+The thread re-read is the guard that matters. A replier answers these leads as
+"Amy" within minutes, so the thread can be answered between Shara approving and
+the send running. Verified against Ryan at Cerberus: refused, `answered_at
+2026-09-17T18:01:30`.
+
+### Gift codes
+
+Gift links are single redemption. The drafts carry a `{{GIFT_CODE}}` placeholder
+and a code is claimed from the dashboard's `gift_codes` pool at send time, so one
+code is spent per reply sent rather than one per draft written. Mark the code used
+BEFORE sending: a crash after a send would otherwise hand one link to two people.
+
+### Not automated
+
+The hourly routine refreshes the queue only. Wiring the sender into it was
+refused by the harness as a real-world transaction, which is the right default:
+it would mean a cloud agent emailing real prospects with no human in the loop.
+So an approval is executed by a person running the command, until someone
+deliberately grants that permission.
