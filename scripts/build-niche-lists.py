@@ -64,6 +64,39 @@ def split_name(full):
     return parts[0], " ".join(parts[1:])
 
 
+# A local-owner list must not contain a national brand's corporate contact. The
+# Google Maps DB carries franchise locations whose owner_name is the parent
+# company's founder: "Kent Taylor / Texas Roadhouse" turns up once per store,
+# and he died in 2021. Two signals catch it without a brand dictionary.
+CHAIN_DOMAINS = {
+    "texasroadhouse.com", "chick-fil-a.com", "playabowls.com", "subway.com",
+    "dominos.com", "mcdonalds.com", "starbucks.com", "dunkinbrands.com",
+    "papajohns.com", "wingstop.com", "jerseymikes.com", "tropicalsmoothie.com",
+    "anytimefitness.com", "orangetheory.com", "greatclips.com", "supercuts.com",
+}
+
+
+def drop_chains(rows):
+    from collections import Counter
+    by_company = Counter(r["company"].strip().lower() for r in rows)
+    by_owner = Counter((r["first_name"] + " " + r["last_name"]).strip().lower() for r in rows)
+    kept, cut = [], []
+    for r in rows:
+        dom = r["email"].split("@")[-1].lower()
+        owner = (r["first_name"] + " " + r["last_name"]).strip().lower()
+        if dom in CHAIN_DOMAINS:
+            cut.append((r, "chain domain")); continue
+        if by_company[r["company"].strip().lower()] > 1:
+            cut.append((r, "same company in several cities")); continue
+        if by_owner[owner] > 1:
+            cut.append((r, "same owner on several rows")); continue
+        kept.append(r)
+    if cut:
+        print(f"    dropped {len(cut)} chain rows: "
+              + ", ".join(sorted({c[0]['company'] for c in cut}))[:160])
+    return kept
+
+
 def pull_b2b(spec, target, exclude):
     rows, page = [], 1
     while len(rows) < target:
@@ -96,8 +129,11 @@ def pull_local(spec, target, _exclude):
         page, got = 1, 0
         per_kw = max(target // max(len(spec["keywords"]), 1), 20)
         while got < per_kw:
-            d = call("POST", "/local-leads/search",
-                     {"keywords": [kw], "hasEmail": True, "page": page, "size": PAGE_SIZE})
+            q = {"keywords": [kw], "hasEmail": True, "page": page, "size": PAGE_SIZE}
+            for k in ("cities", "states", "countries"):
+                if k in spec:
+                    q[k] = spec[k]
+            d = call("POST", "/local-leads/search", q)
             if not d or not d.get("businesses"):
                 break
             for b in d["businesses"]:
@@ -117,7 +153,7 @@ def pull_local(spec, target, _exclude):
             if not d.get("has_more"):
                 break
             page += 1
-    return rows[:target], LOCAL_COLS
+    return drop_chains(rows)[:target], LOCAL_COLS
 
 
 def main():
