@@ -83,7 +83,8 @@
     "Cannabis cultivator",
     "Hemp farm"
    ],
-   "note": "No Consulti industry enum for cannabis. Keywords widened 2026-10-08 past dispensaries into CBD, smoke and vape retail to clear 150 rows."
+   "note": "No Consulti industry enum for cannabis. Keywords widened 2026-10-08 past dispensaries into CBD, smoke and vape retail to clear 150 rows. Multi-location rule off: dispensary groups run several stores under one name and each is a real local contact.",
+   "allow_multi_location": true
   },
   "ecommerce brands": {
    "endpoint": "/leads/search",

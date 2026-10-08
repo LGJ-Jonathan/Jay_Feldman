@@ -15,9 +15,53 @@
     "email"
    ]
   },
+  "camps-and-retreat-centers.csv": {
+   "rows": 78,
+   "domains": 78,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "website",
+    "phone",
+    "city",
+    "state",
+    "email"
+   ]
+  },
   "cannabis-brands.csv": {
-   "rows": 144,
-   "domains": 138,
+   "rows": 170,
+   "domains": 163,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "website",
+    "phone",
+    "city",
+    "state",
+    "email"
+   ]
+  },
+  "coaches-speakers-and-sales-consultants.csv": {
+   "rows": 300,
+   "domains": 294,
+   "columns": [
+    "first_name",
+    "last_name",
+    "title",
+    "company",
+    "linkedin_url",
+    "city",
+    "state",
+    "email"
+   ]
+  },
+  "dfw-suburb-local-businesses.csv": {
+   "rows": 101,
+   "domains": 100,
    "columns": [
     "first_name",
     "last_name",

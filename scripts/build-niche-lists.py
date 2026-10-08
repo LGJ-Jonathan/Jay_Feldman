@@ -76,7 +76,7 @@ CHAIN_DOMAINS = {
 }
 
 
-def drop_chains(rows):
+def drop_chains(rows, allow_multi_location=False):
     from collections import Counter
     by_company = Counter(r["company"].strip().lower() for r in rows)
     by_owner = Counter((r["first_name"] + " " + r["last_name"]).strip().lower() for r in rows)
@@ -86,10 +86,13 @@ def drop_chains(rows):
         owner = (r["first_name"] + " " + r["last_name"]).strip().lower()
         if dom in CHAIN_DOMAINS:
             cut.append((r, "chain domain")); continue
-        if by_company[r["company"].strip().lower()] > 1:
-            cut.append((r, "same company in several cities")); continue
-        if by_owner[owner] > 1:
-            cut.append((r, "same owner on several rows")); continue
+        if not allow_multi_location:
+            if by_company[r["company"].strip().lower()] > 1:
+                cut.append((r, "same company in several cities")); continue
+            if by_owner[owner] > 1:
+                cut.append((r, "same owner on several rows")); continue
+        elif dom in CHAIN_DOMAINS:
+            cut.append((r, "chain domain")); continue
         kept.append(r)
     if cut:
         print(f"    dropped {len(cut)} chain rows: "
@@ -125,10 +128,15 @@ def pull_b2b(spec, target, exclude):
 
 def pull_local(spec, target, _exclude):
     rows, seen = [], set()
+    # Pull each keyword until it runs dry, stopping only once the whole list
+    # hits target. Dividing target across keywords caps the dense keywords
+    # early: widening cannabis from 2 keywords to 10 dropped the per-keyword
+    # budget from 150 to 30 and SHRANK the list from 144 rows to 102.
     for kw in spec.get("keywords", []):
-        page, got = 1, 0
-        per_kw = max(target // max(len(spec["keywords"]), 1), 20)
-        while got < per_kw:
+        if len(rows) >= target:
+            break
+        page = 1
+        while len(rows) < target:
             q = {"keywords": [kw], "hasEmail": True, "page": page, "size": PAGE_SIZE}
             for k in ("cities", "states", "countries"):
                 if k in spec:
@@ -149,11 +157,10 @@ def pull_local(spec, target, _exclude):
                              "company": b.get("name") or "", "website": b.get("website") or "",
                              "phone": b.get("phone") or "", "city": b.get("city") or "",
                              "state": b.get("state") or "", "email": em})
-                got += 1
             if not d.get("has_more"):
                 break
             page += 1
-    return drop_chains(rows)[:target], LOCAL_COLS
+    return drop_chains(rows, spec.get('allow_multi_location', False))[:target], LOCAL_COLS
 
 
 def main():
