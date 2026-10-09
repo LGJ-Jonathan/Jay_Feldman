@@ -7,7 +7,7 @@
 # check, the daily cap. A refusal here is a guard working, not a failure.
 #
 # Usage:
-#   BISON_API_KEY=... bash scripts/send-batch.sh ready            # the 19 with nothing missing
+#   BISON_API_KEY=... bash scripts/send-batch.sh ready            # everything with nothing missing
 #   BISON_API_KEY=... bash scripts/send-batch.sh gated            # the 10 that need a gift code
 #   BISON_API_KEY=... bash scripts/send-batch.sh all
 #   BISON_API_KEY=... bash scripts/send-batch.sh ready --dry-run  # prove it first
@@ -31,7 +31,11 @@ for k in keys:
 PY
 
 total=$(wc -l < /tmp/give-first-queue.tsv | tr -d ' ')
-echo "$WHICH: $total staged"; echo
+case " $* " in
+  *" --dry-run "*) echo "$WHICH: $total staged. Dry run, nothing will be sent." ;;
+  *) echo "$WHICH: $total staged. SENDING now. Ctrl-C stops it." ;;
+esac
+echo
 sent=0; refused=0
 while IFS=$'\t' read -r rid attach; do
   body="Leads/fulfillment/staged/${rid}.txt"
@@ -48,7 +52,11 @@ while IFS=$'\t' read -r rid attach; do
       echo; echo "Stopping: Bison rejected the key, so every remaining lead would fail the same way."
       echo "Fix the key and re-run. Nothing was sent."; exit 1 ;;
   esac
-  sleep 20
+  # Each lead's thread belongs to its own mailbox: this batch is 20 leads across
+  # 20 distinct sender mailboxes, one email each, so there is no per-mailbox
+  # burst to space out and the old 20s pause bought nothing. A short pause is
+  # kept only to stay polite to the API. Override with GIVE_FIRST_PAUSE.
+  case " $* " in *" --dry-run "*) : ;; *) sleep "${GIVE_FIRST_PAUSE:-2}" ;; esac
 done < /tmp/give-first-queue.tsv
 
 echo; echo "sent: $sent   refused: $refused"
