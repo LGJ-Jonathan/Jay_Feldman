@@ -44,6 +44,11 @@ def out(**kw):
 
 
 def get(path):
+    """Read from Bison. Any failure refuses the send in one readable line.
+
+    An unhandled HTTPError here used to print a 14-line traceback, and the batch
+    runner then did it once per lead: 23 tracebacks for one wrong API key.
+    """
     req = urllib.request.Request(BASE + path, headers={"Authorization": "Bearer " + KEY})
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
@@ -51,7 +56,14 @@ def get(path):
     except urllib.error.HTTPError as e:
         if e.code == 404:
             return None
-        raise
+        if e.code in (401, 403):
+            out(sent=False, auth_failed=True,
+                refused=f"Bison rejected the API key ({e.code}) on {path}. "
+                        "The key holds a '|', so it must be quoted: "
+                        "export BISON_API_KEY='674|...'")
+        out(sent=False, refused=f"Bison returned {e.code} on {path}")
+    except Exception as e:
+        out(sent=False, refused=f"could not reach Bison on {path}: {e}")
 
 
 def load_log():
@@ -84,7 +96,8 @@ def main():
     a = ap.parse_args()
 
     if not KEY:
-        out(sent=False, refused="BISON_API_KEY not set")
+        out(sent=False, refused="BISON_API_KEY is empty. Note the key holds a '|', "
+                                "so it must be quoted: export BISON_API_KEY='674|...'")
     if OFF.exists():
         out(sent=False, refused="killswitch: scripts/sender.off exists")
 
@@ -113,6 +126,24 @@ def main():
 
     lead_email = rep.get("from_email_address")
     sender_id = rep.get("sender_email_id")
+
+    if not sender_id:
+        # Some replies carry no sender_email_id. The mailbox the lead replied TO is
+        # ours, and primary_to_email_address names it, so resolve that against the
+        # workspace's live mailboxes (scripts/sender-emails.json, refreshed by
+        # scripts/cache-sender-emails.py).
+        inbox = (rep.get("primary_to_email_address") or "").lower()
+        cache = {}
+        try:
+            cache = json.loads((ROOT / "scripts" / "sender-emails.json").read_text())["by_email"]
+        except Exception:
+            pass
+        sender_id = cache.get(inbox)
+        if not sender_id and inbox:
+            out(sent=False,
+                refused=f"the mailbox this lead replied to ({inbox}) is not a live sender "
+                        "in this workspace, so the thread cannot be answered from it. "
+                        "Answer by hand from a current mailbox, or leave it.")
     if not lead_email or not sender_id:
         out(sent=False, refused="reply is missing from_email_address or sender_email_id")
 

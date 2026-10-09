@@ -5,3 +5,6 @@ Leads/
 # The desk payload is regenerated on the host and carries prospect contact details.
 dashboard/data.json
 dashboard/data.json.tmp
+
+# Rebuilt by scripts/cache-sender-emails.py; it is a cache, not a source of truth.
+scripts/sender-emails.json
