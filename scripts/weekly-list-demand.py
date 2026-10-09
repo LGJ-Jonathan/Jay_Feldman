@@ -75,9 +75,17 @@ QUESTION = re.compile(r"how much|what.{0,12}cost|for free|pricing|\bprice\b|excl
                       r"than i'?d find|what are you offering|what you are offering|"
                       r"not.{0,12}sure what|share more|tell me more|more about", re.I)
 # They want something other than the 300 on offer.
-MISMATCH = re.compile(r"much larger|larger list|bigger list|more than \d|at least \$?[\d,]{3,}|"
-                      r"only need|instead of|rather than|list of \d{3,}|\$[\d,]{4,}|"
-                      r"\d{3,}\s*(of those|contacts|leads)", re.I)
+# They want something other than what was offered: a different size, a revenue
+# floor, or a company tier. An earlier version required four digits after the
+# "$", so "above $500k in monthly revenue" slipped through and Jeremy was
+# staged a list explicitly capped at 500 employees.
+MISMATCH = re.compile(r"much larger|larger list|bigger list|more than \d|only need|instead of|"
+                      r"rather than|list of \d{3,}|\d{3,}\s*(of those|contacts|leads)|"
+                      r"\$\s?[\d.,]+\s?[kmb]\b|\$[\d.,]{3,}|"
+                      r"\b\d[\d.,]*\s?(k|m|mm|million|billion)\b|"
+                      r"\benterprise\b|\bmid-?market\b|upwards of|at least \$?[\d,]|"
+                      r"\b(annual|monthly) revenue\b|\bper (year|month)\b", re.I)
+
 GEO = re.compile(r"\b(in|near|around|within)\b[^.]{0,60}\b(city|cities|state|states|county|"
                  r"metro|area|miles|zip)\b|\b[A-Z][a-z]+,\s?[A-Z]{2}\b", re.I)
 
