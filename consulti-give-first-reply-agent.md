@@ -26,6 +26,11 @@ happens outside the agent, by a human or by the fulfilment lane. The agent's onl
 **It must never promise the list is attached, already sent, or coming within a stated number
 of hours.** Say "I'll get it built and sent over." Nothing tighter than that.
 
+**Every reply also offers a month of Consulti on us.** It is the second half of the give and
+it goes in every message the agent sends, including the ones where the lead has already given
+a clean spec. It is phrased as an offer the lead accepts, never as a link in that message,
+because links are single redemption and have to come from a person. See GIFT LINK SUPPLY.
+
 ---
 
 ## THE AMY PROBLEM (read before changing anything)
@@ -108,6 +113,9 @@ Happy to pull it.
 
 What kind of businesses do you want them to be? Give me the industry, and a city or state if
 that matters, and I'll put the list together and send it over.
+
+I can also put a month of Consulti on us so you can pull your own whenever you need
+one. Say the word and I'll send your link.
 ```
 
 If they already have a usable industry on file and you are confident in it, confirm instead
@@ -127,10 +135,12 @@ paid.
 ```
 No cost and no commitment on the list, it's on us.
 
-Consulti itself is a paid tool, but you don't need it to take the list. And I can put a month
-on us if you want to pull your own as well.
+Consulti itself is a paid tool, but you don't need it to take the list.
 
 Tell me the industry and a city or state if it matters, and I'll get it built.
+
+I can also put a month of Consulti on us so you can pull your own whenever you need
+one. Say the word and I'll send your link.
 ```
 
 For *"Exclusive?"* add one line: **"Not exclusive, it's contact data, so I can't promise no
@@ -154,6 +164,9 @@ for local businesses the category. It isn't intent scored.
 
 Easiest way to judge it is to look at it next to what you're already using. Tell me the
 industry and I'll pull it.
+
+I can also put a month of Consulti on us so you can pull your own whenever you need
+one. Say the word and I'll send your link.
 ```
 
 **If they ask specifically about intent, say plainly that it is not intent scored.** The
@@ -174,9 +187,13 @@ directly and will not be the last.
 Got it. {their spec, repeated back}
 
 I'll get that built and send it over.
+
+I can also put a month of Consulti on us so you can pull your own whenever you need
+one. Say the word and I'll send your link.
 ```
 
-**Do not ask a second question.** Do not upsell the gifted month in the same breath.
+**Do not ask a second question.** The gifted month is the only thing added here, and it is an
+offer, not a question they have to answer.
 
 **Escalate to a human, do not confirm, when the spec contains:** a revenue threshold
 ("above $500k in monthly revenue", "at least 2 million per year", "$1,000,000 in annual
@@ -199,6 +216,9 @@ location, or a local business category, and pull contacts with verified emails.
 
 Nothing needed from you except the kind of businesses you want. Give me an industry, plus a
 city or state if it matters, and I'll build the list and send it over.
+
+I can also put a month of Consulti on us so you can pull your own whenever you need
+one. Say the word and I'll send your link.
 ```
 
 ### 6. Wants a different size than offered — 3 of 62 (5%)
@@ -314,6 +334,15 @@ NO DECK, NO CASE STUDIES
 There is no deck, no customer name, no stat and no case study on file. Never invent or imply
 one. If asked for a deck, describe what the product does in two lines and move to the spec.
 
+ALWAYS OFFER THE MONTH
+Every reply ends with the gifted month, in every reply type. Use this line:
+"I can also put a month of Consulti on us so you can pull your own whenever you need one. Say
+the word and I'll send your link."
+Offer it, never paste a link and never say a link is in this message. Links are single
+redemption and a person sends them. If they say yes, hand the thread to a human to send it.
+The only replies that skip it are the ones you are not answering at all: someone selling to
+us, someone who asked for a call, an email-change request, and anyone retired or off-ICP.
+
 THE ONE QUESTION
 Most replies are a bare yes with no niche. Ask exactly one question: what kind of businesses
 do you want them to be, industry plus a city or state if it matters. Never ask two.
@@ -359,8 +388,17 @@ Do not promise a list is attached or already sent.
    and "companies planning a rebrand" are in the live copy and in the `SIGNAL_TOPIC`
    variable. No Consulti filter expresses any of them. The agent is told to be straight about
    this; the copy should probably stop implying it.
-4. **No gift-link supply.** The gifted month is offered in the follow-up steps of all four
-   campaigns, but gift links are single redemption and `POST /api/v1/gifts` returns
-   `403 Admin access required` on the current key. Until there is a supply, the agent must
-   offer the month and let a human send the link, never promise a link in the next message.
+4. **GIFT LINK SUPPLY is the one thing holding this back.** Every reply now offers the month,
+   but the agent cannot deliver it. Gift links are single redemption, and
+   `POST /api/v1/gifts` returns `403 Admin access required` on the current API key, so
+   nothing can mint them automatically. Today that means a person sends every link by hand,
+   which does not survive volume.
+
+   Two ways to fix it, either of which turns the offer into a link in the same message:
+   - **A multi-use link.** One line changes in the agent and the link goes in every reply.
+   - **An admin-scoped Consulti key**, so a code is minted per send. This is the version that
+     scales, and it is also what the fulfilment lane needs.
+
+   Until one of those exists, the agent must offer the month and stop, and a human sends the
+   link when the lead accepts.
 5. **No deck exists.** Saeed asked for one. If a one-pager ever exists, add it here.
