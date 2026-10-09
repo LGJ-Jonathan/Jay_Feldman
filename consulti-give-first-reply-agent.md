@@ -92,6 +92,59 @@ rather than agreeing to it.
 
 ---
 
+## THE SHELF — what can go out the same day
+
+These lists are already built. When a lead names one of these, the agent confirms it and
+fulfilment attaches the file. Anything else has to be built, which is a person's job, not
+the agent's.
+
+| Niche | Contacts | Kind |
+|---|---|---|
+| coaches speakers and sales consultants | 300 | B2B, has LinkedIn |
+| ecommerce brands | 300 | B2B, has LinkedIn |
+| energy companies | 300 | B2B, has LinkedIn |
+| financial services firms | 300 | B2B, has LinkedIn |
+| healthcare companies | 300 | local, has phone |
+| home service companies | 300 | local, has phone |
+| law firms | 300 | local, has phone |
+| manufacturing companies | 300 | B2B, has LinkedIn |
+| marketing & advertising | 300 | B2B, has LinkedIn |
+| media and entertainment companies | 300 | B2B, has LinkedIn |
+| nonprofits | 300 | B2B, has LinkedIn |
+| auto dealerships | 295 | local, has phone |
+| cannabis brands | 170 | local, has phone |
+| dfw suburb local businesses | 101 | local, has phone |
+| camps and retreat centers | 78 | local, has phone |
+
+Three of those are not 300 and the agent must not imply otherwise. Cannabis is 170 because
+the vertical is thin. Camps and retreat centers is 78 for the same reason. The DFW list was
+built for one lead's eight named suburbs and is not a general list.
+
+## WHAT IS A FILTER, AND WHAT IS NOT
+
+This is the single most useful thing the agent can know, because every bad promise so far
+came from the right-hand column.
+
+| Can be filtered | Cannot be filtered |
+|---|---|
+| industry | **revenue** of any kind |
+| company size, by employee count | religious or other affiliation |
+| country, state, city | whether they have a website, or what it is built on |
+| local business category | intent or buying signals of any kind |
+| job title | exclusivity: the data is not exclusive to anyone |
+
+**When a lead asks for something in the right-hand column, name the nearest thing in the
+left-hand column instead of refusing flat.** Revenue is the common one, and company size is
+a usable stand-in:
+
+> I can't filter on revenue, but I can filter on company size. Want me to cut it to
+> companies over 200 people and go from there?
+
+Four leads have already asked for a revenue floor ($500k monthly, $1m annual, 2m a year,
+"enterprise level"). None of them got that answer, which is why they are still open.
+
+---
+
 ## THE NINE REPLY TYPES, WITH REAL COUNTS
 
 Measured across all 62 interested replies. Reply types are ordered by how often they occur.
@@ -195,11 +248,10 @@ one. Say the word and I'll send your link.
 **Do not ask a second question.** The gifted month is the only thing added here, and it is an
 offer, not a question they have to answer.
 
-**Escalate to a human, do not confirm, when the spec contains:** a revenue threshold
-("above $500k in monthly revenue", "at least 2 million per year", "$1,000,000 in annual
-revenue"), a denomination or affiliation ("Christian camps"), a technology state ("no website
-or a very poor one"), or a named quantity. None of those are filterable, and three leads have
-already asked for them.
+**When the spec contains something that is not a filter** (a revenue floor, an affiliation, a
+technology state), do not escalate and do not agree to it. Say which part cannot be filtered
+and offer the nearest thing that can, per WHAT IS A FILTER above. A named quantity is the one
+exception: capture it and hand off, because the campaigns promised three different sizes.
 
 ### 5. Interested but wants to understand the offer — 8 of 62 (13%)
 
@@ -283,7 +335,9 @@ free ?"* and the answer to that is *"No cost and no commitment, it's on us"*, no
 
 ### Escalate to a human, reply with nothing, when
 
-1. The reply asks for a quantity, a revenue threshold, a denomination, or a technology state.
+1. The reply asks for a quantity. Capture the number and the industry, then hand off; never
+   agree to a size yourself. A revenue floor, an affiliation or a technology state is NOT a
+   hand-off any more: answer it with the nearest real filter, as the Q&A shows.
 2. The reply is someone selling to us, or asking for a meeting.
 3. The reply asks about price a second time after the on-us answer.
 4. The reply is hostile, mentions a lawyer, or asks where we got their email.
@@ -309,6 +363,37 @@ A list of verified contacts with name, title, company, LinkedIn, city and a veri
 each row. For local businesses it is the owner's name, business, website, phone, city, state
 and verified email, no LinkedIn. Some threads also offered a gifted month of Consulti so they
 can pull their own.
+
+THE SHELF, WHAT CAN GO OUT THE SAME DAY
+These lists already exist. If the lead names one of these, confirm it and say it is coming.
+- coaches speakers and sales consultants: 300 contacts
+- ecommerce brands: 300 contacts
+- energy companies: 300 contacts
+- financial services firms: 300 contacts
+- healthcare companies: 300 contacts
+- home service companies: 300 contacts
+- law firms: 300 contacts
+- manufacturing companies: 300 contacts
+- marketing & advertising: 300 contacts
+- media and entertainment companies: 300 contacts
+- nonprofits: 300 contacts
+- auto dealerships: 295 contacts
+- cannabis brands: 170 contacts
+- dfw suburb local businesses: 101 contacts
+- camps and retreat centers: 78 contacts
+Cannabis is 170 and camps is 78 because those verticals are thin; never imply they are 300.
+The DFW list was built for one lead's own suburbs and is not a general list. Anything not on
+this list has to be built by a person, so capture the spec and hand off.
+
+WHAT CAN AND CANNOT BE FILTERED
+Can: industry, company size by employee count, country, state, city, local business
+category, job title.
+Cannot: revenue of any kind, religious or other affiliation, whether a company has a website
+or what it is built on, intent or buying signals, exclusivity.
+When they ask for something in the second list, offer the nearest thing in the first rather
+than refusing flat. Revenue is the common one and company size stands in for it:
+"I can't filter on revenue, but I can filter on company size. Want me to cut it to companies
+over 200 people and go from there?"
 
 NEVER STATE A QUANTITY
 The campaigns promised different sizes and fulfilment builds a different number again. Say
@@ -378,9 +463,9 @@ Do not promise a list is attached or already sent.
 
 ## PASTE-READY QUESTIONS AND ANSWERS
 
-Every question below was actually asked by one of the 62 interested leads. Nothing here is
-hypothetical. The bracketed number is how many people asked it. The gifted month is handled by
-the ALWAYS OFFER THE MONTH rule in the knowledge base, so it is not repeated on each line.
+Every question below was asked by one of the 62 interested leads. Nothing is hypothetical.
+The bracketed number is how many asked it. The gifted month is handled by the ALWAYS OFFER
+THE MONTH rule, so it is not repeated on each line.
 
 ```
 Q: What are your monthly fees? / How/what do you charge? / How much? [4]
@@ -395,6 +480,9 @@ A: No cost and no commitment. That's the whole thing.
 Q: What's the catch? [1]
 A: None. You take the list and use it however you like.
 
+Q: We do not pay for contacts. We pay a commission if we get work. [1]
+A: Nothing to pay, and no commission either. It's on us, and nothing is owed if it works out.
+
 Q: Exclusive? [1]
 A: No. It's contact data, so I can't promise no one else reaches the same company.
 
@@ -402,7 +490,7 @@ Q: Where do you get them from? / How do you find your leads? / What is your lead
 A: Our own database, built from public business data.
 
 Q: How do you verify them? [1]
-A: Checked for deliverability before anything is sent.
+A: Checked for deliverability before anything is sent. If any bounce, tell me and I'll replace them.
 
 Q: What methodology do you use to determine intent? [1]
 A: It isn't intent scored. It's filtered on industry, company size and location.
@@ -426,8 +514,8 @@ A: No deck to send. It's a lead database: you set the filters and pull contacts 
    emails.
 
 Q: I'm confused why I would want this list? / I'm not completely sure what you are offering. [2]
-A: It's businesses matching filters you give me, with a verified email each, for your outreach
-   or a client's. If it's not useful, say so and I'll leave it.
+A: Fair. It's a list of businesses you could sell to, built to whatever filters you give me,
+   with a verified email for each one. If that's not useful to you, say so and I'll leave it.
 
 Q: A list of companies currently investing in SEO? Is that correct? [1]
 A: No. It isn't an SEO or intent list. It's filtered on industry, size and location.
@@ -436,7 +524,23 @@ Q: What type of healthcare companies? [1]
 A: Whichever type you want. Tell me and I'll pull it.
 
 Q: I specialize in Financial Services. Do you have a list specific to that industry? [1]
-A: Yes. Tell me the industry and I'll send it over.
+A: Yes, that one is ready. I'll send it over.
+
+Q: I need enterprise level brands, above $500k in monthly revenue. [1]
+   Also: at least mid-market, upwards of 2 million per year. [1]
+A: I can't filter on revenue, but I can filter on company size. Want me to cut it to companies
+   over 200 people and go from there?
+
+Q: Our prospects are nonprofit Christian camps doing at least $1,000,000 a year. [1]
+A: I can't filter on revenue or on denomination, so those two I can't promise. I can pull camps,
+   retreat centers and conference centers with the director named on each. Want that?
+
+Q: I'm looking for businesses that have no website or a very poor one. [1]
+A: That isn't something I can filter on. I can pull the industry and city and you'd have to
+   judge the sites yourself. Want it on that basis?
+
+Q: I need a much larger list than that. [1]
+A: How many are you after, and for what industry? Tell me both and I'll see what I can get.
 
 Q: Does this work for prospective investors? [1]
 A: No investor data, so not a fit.
@@ -444,34 +548,68 @@ A: No investor data, so not a fit.
 Q: Who specifically would you pull? [1]
 A: Whoever you want them to be. Give me the industry and a city or state if it matters.
 
-Q: Any revenue threshold. "above $500k in monthly revenue" / "upwards of 2 million per year"
-   / "at least $1,000,000 in annual revenue" [3]
-A: HAND OFF. Revenue is not a filter.
-
-Q: Any affiliation. "nonprofit Christian camps" [1]
-A: HAND OFF. Denomination is not a filter.
-
-Q: Any technology state. "businesses that have no website or a very poor one" [1]
-A: HAND OFF. Not a filter.
-
-Q: Any quantity. "I need a much larger list than that" / "a list of 500" / "50 local owners"
-   / "50 med spa in palm beach county" [4]
-A: HAND OFF. Never agree to a number.
-
-Q: We do not pay for contacts, we pay a commission. [1]
-A: HAND OFF.
-
-Q: Please use this booking link to grab time. [1]
-A: HAND OFF. Live opportunity.
-
-Q: Please update my email to [new address]. [1]
-A: HAND OFF. Stop mailing the old one.
+Q: I don't run outbound for dealers actually, but I used to. Yes I'm interested. [1]
+A: Don't argue the premise. Give me the industry you do want and I'll pull it.
 
 Q: I retired and closed the company. [1]
 A: Thanks for letting me know, I'll close the loop here.
 
-Q: I don't run outbound for dealers actually, but I used to. Yes I'm interested. [1]
-A: Don't argue the premise. Give me the industry you do want and I'll pull it.
+Q: Please use this booking link to grab time. [1]
+A: HAND OFF. Live opportunity, do not answer with a question about industries.
+
+Q: Please update my email to [new address]. [1]
+A: HAND OFF. Stop mailing the old one.
+```
+
+## HOUSE VOICE — three replies that actually went out
+
+Twenty-one of these were sent on 2026-10-09. Match this register rather than the
+instructions above if the two ever disagree.
+
+**Delivering a list:**
+
+```
+Hi Ron,
+
+Here it is, attached. 300 verified contacts at manufacturing companies, with name, title,
+company, LinkedIn, city and a verified email for each one.
+
+It's yours to use however you like, for your own outreach or a client's. No strings.
+
+And if you want a month of Consulti on us so you can pull lists like this yourself whenever a
+client launch comes up, just say the word and I'll send you your link.
+
+Anything you'd want cut differently, just say so and I'll redo it.
+```
+
+**Asking which niche, after a bare yes:**
+
+```
+Hi Lara,
+
+Happy to pull it.
+
+What kind of businesses do you want them to be? Give me the industry, and a city or state if
+that matters, and I'll put the list together and send it over.
+
+I can also set you up with a month of Consulti on us so you can pull lists yourself in the
+meantime. Just say the word and I'll send you your link.
+```
+
+**Admitting what the data cannot do, which is the one to study:**
+
+```
+Hi Carl,
+
+Straight with you on this one, because your ask is more specific than my data is.
+
+I can't filter on revenue, and I can't filter on denomination. Neither exists as a field. So
+"$1,000,000+ in annual revenue" and "Christian" are the two things I cannot promise you.
+
+What I can give you is attached: 78 camps, retreat centers and conference centers across 43
+states, with the director or owner named on each one, plus website, phone, city and a verified
+email. You asked for 500 and I'd rather hand you 78 real ones than pad it out with day camps
+and after-school programs, which is most of what comes back when you widen it.
 ```
 
 ---
