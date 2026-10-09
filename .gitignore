@@ -1,3 +1,7 @@
 # Prospect PII — never commit lead or suppression data
 Leads/
 *.csv
+
+# The desk payload is regenerated on the host and carries prospect contact details.
+dashboard/data.json
+dashboard/data.json.tmp

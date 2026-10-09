@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Consulti Give-First Desk</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<style>
+/* Layout: sticky bar, metric tiles, a sending strip, then one stacked column of
+   working tables. Snapshot facts are embedded; only decisions live in the store. */
+:root{
+  --ink:#16191d; --ink-2:#4a5258; --ink-3:#767f86;
+  --paper:#f4f2ee; --card:#ffffff; --line:#dcd8d1;
+  --accent:#0f5f58; --accent-soft:#e0efed; --on-accent:#ffffff;
+  --ready:#1c6b3a; --ready-bg:#e2f0e6;
+  --ask:#8a5a07; --ask-bg:#f6ebd8;
+  --block:#6b6f74; --block-bg:#e8e6e2;
+  --sent:#1b4f8f; --sent-bg:#e2ebf7;
+  --skip:#8d3a34; --skip-bg:#f5e4e2;
+  --display:'Archivo',system-ui,sans-serif;
+  --body:'Source Sans 3',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ink:#eceef0; --ink-2:#a8b1b8; --ink-3:#7c858c;
+  --paper:#15181b; --card:#1d2125; --line:#30363c;
+  --accent:#5fcfc2; --accent-soft:#1c3b38; --on-accent:#09201e;
+  --ready:#74d195; --ready-bg:#1a3626;
+  --ask:#e0b05f; --ask-bg:#3a2d16;
+  --block:#9aa2a9; --block-bg:#282d32;
+  --sent:#7eb3f0; --sent-bg:#17293f;
+  --skip:#e09a93; --skip-bg:#3a211f;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ink:#eceef0; --ink-2:#a8b1b8; --ink-3:#7c858c;
+  --paper:#15181b; --card:#1d2125; --line:#30363c;
+  --accent:#5fcfc2; --accent-soft:#1c3b38; --on-accent:#09201e;
+  --ready:#74d195; --ready-bg:#1a3626;
+  --ask:#e0b05f; --ask-bg:#3a2d16;
+  --block:#9aa2a9; --block-bg:#282d32;
+  --sent:#7eb3f0; --sent-bg:#17293f;
+  --skip:#e09a93; --skip-bg:#3a211f;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:0 56px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:baseline}
+h1{font-size:19px;font-weight:700;letter-spacing:-.2px}
+.bar-sub{color:var(--ink-3);font-size:13px}
+.bar-sub .num{color:var(--ink-2)}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-block:22px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:14px 16px;min-width:0}
+.tile .k{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:600}
+.tile .v{font-family:var(--mono);font-size:26px;font-weight:500;margin-top:5px;letter-spacing:-.5px}
+.tile .n{font-size:12px;color:var(--ink-3);margin-top:2px}
+.tile.hi{border-left:3px solid var(--accent)}
+.tile.warn-t{border-left:3px solid var(--skip)}
+
+section{margin-block:34px}
+.sec-h{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:12px}
+h2{font-size:15px;font-weight:600;letter-spacing:.01em}
+.sec-h p{margin:0;color:var(--ink-3);font-size:13px;min-width:0;flex:1 1 320px}
+
+.scroll{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:4px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-family:var(--display);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);
+  text-align:left;font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.r,th.r{text-align:right}
+.co{font-weight:600}
+.sub{color:var(--ink-3);font-size:12px}
+.mono-s{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;white-space:nowrap;
+  text-transform:uppercase;letter-spacing:.04em}
+.p-ready{background:var(--ready-bg);color:var(--ready)}
+.p-held{background:var(--ask-bg);color:var(--ask)}
+.p-paused,.p-completed{background:var(--block-bg);color:var(--block)}
+.p-approved{background:var(--accent-soft);color:var(--accent)}
+.p-sent{background:var(--sent-bg);color:var(--sent)}
+.p-skipped,.p-answered{background:var(--skip-bg);color:var(--skip)}
+.p-active{background:var(--ready-bg);color:var(--ready)}
+
+.btn{font-family:var(--body);font-size:12px;font-weight:600;padding:4px 10px;border-radius:3px;cursor:pointer;
+  border:1px solid var(--line);background:var(--card);color:var(--ink-2);white-space:nowrap}
+.btn:hover:not(:disabled){border-color:var(--ink-3);color:var(--ink)}
+.btn.go{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn:focus-visible,.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;align-items:center}
+.chip{font-family:var(--body);font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:13px;cursor:pointer;
+  background:var(--card);color:var(--ink-2);border:1px solid var(--line)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.search{font-family:var(--body);font-size:13px;padding:5px 10px;border-radius:13px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink);min-width:150px}
+.search:focus{outline:2px solid var(--accent);outline-offset:1px}
+
+.qrow{cursor:pointer}
+.qrow:hover,.qrow.open{background:var(--accent-soft)}
+.caret{color:var(--ink-3);font-family:var(--mono);font-size:11px}
+td.detail{padding:0;background:var(--paper)}
+.rev{padding:16px 14px;display:grid;gap:16px;grid-template-columns:1fr 1fr}
+@media (max-width:860px){.rev{grid-template-columns:1fr}}
+.rev h3{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:600;margin-bottom:6px}
+.said{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:11px 12px;white-space:pre-wrap;
+  font-size:13.5px;min-width:0;overflow-wrap:anywhere}
+.said.none{color:var(--ink-3)}
+.rev-full{grid-column:1/-1;min-width:0}
+.rev-bar{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-top:1px solid var(--line);padding-top:13px}
+.rev-bar .spacer{flex:1 1 auto}
+.warn{background:var(--ask-bg);color:var(--ask);border-radius:3px;padding:9px 11px;font-size:12.5px;grid-column:1/-1}
+.danger{grid-column:1/-1;background:var(--skip-bg);color:var(--skip);border-radius:3px;padding:11px 13px;font-size:13px}
+.danger .said{color:var(--ink);background:var(--card)}
+
+.strip{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:14px 16px}
+.sb-row{display:flex;flex-wrap:wrap;gap:16px 26px;align-items:flex-start}
+.sb-block{min-width:0}
+.sb-block.grow{flex:1 1 280px}
+.sb-block .k{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:600;margin-bottom:5px}
+.sb-state{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:3px}
+.sb-num{font-size:22px;font-weight:500;letter-spacing:-.4px;font-family:var(--mono)}
+.codebox{width:100%;min-height:50px;resize:vertical;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+  border-radius:3px;padding:8px 10px;font-family:var(--mono);font-size:12px}
+.codebox:focus{outline:2px solid var(--accent);outline-offset:-1px}
+
+.empty{padding:30px 20px;text-align:center;color:var(--ink-3);font-size:13.5px}
+.empty strong{display:block;color:var(--ink-2);font-family:var(--display);font-size:14px;margin-bottom:5px}
+.note{font-size:12.5px;color:var(--ink-3);margin-top:9px}
+.bad{color:var(--skip);font-weight:600}
+.cmd{font-family:var(--mono);font-size:12px;background:var(--paper);border:1px solid var(--line);border-radius:3px;
+  padding:8px 10px;overflow-x:auto;white-space:pre;color:var(--ink-2);margin-top:8px}
+@media (prefers-reduced-motion:no-preference){.btn,.chip{transition:background .12s,border-color .12s,color .12s}}
+@media (max-width:620px){.hide-s{display:none}h1{font-size:17px}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="bar-in">
+    <h1>Consulti Give-First Desk</h1>
+    <span class="bar-sub">Four campaigns · <span class="num" id="nint">—</span> interested replies ·
+      refreshed <span class="num" id="gen">—</span> <span id="live" class="sub"></span></span>
+  </div>
+</header>
+
+<div class="wrap">
+  <div id="stale"></div>
+  <div class="tiles" id="tiles"></div>
+
+  <section class="strip" id="strip">
+    <div class="sb-row">
+      <div class="sb-block">
+        <div class="k">Sender</div>
+        <div class="sb-state" id="sbState">—</div>
+        <div class="sub" id="sbHint"></div>
+      </div>
+      <div class="sb-block">
+        <div class="k">Gift links in the pool</div>
+        <div class="sb-num" id="sbCodes">—</div>
+        <div class="sub">One per reply. Single redemption.</div>
+      </div>
+      <div class="sb-block grow">
+        <div class="k">How this page stays current</div>
+        <div class="sub">Hermes regenerates the data on its own schedule and this page re-reads it
+          every 60 seconds. Approving here writes a decision Hermes picks up on its next pass.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h">
+      <h2>Replies waiting to go out</h2>
+      <p>Open a row to read what the lead wrote and the reply staged for them. Approving records a
+        decision; the send itself runs from the sender, which re-reads the live thread first.</p>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="scroll">
+      <table>
+        <thead><tr>
+          <th></th><th>Lead</th><th class="hide-s">Campaign</th><th>List attached</th><th>State</th><th class="r">Decision</th>
+        </tr></thead>
+        <tbody id="qbody"><tr><td colspan="6"><div class="empty">
+          <strong>Loading</strong>Reading data.json.</div></td></tr></tbody>
+      </table>
+    </div>
+    <p class="note" id="qnote"></p>
+  </section>
+
+  <section>
+    <div class="sec-h">
+      <h2>Answered by the bot before we got there</h2>
+      <p>The reply agent built for the July campaigns is live on these four and sent most of these
+        people a link to the prebuilt lists page, which is not what they were promised.</p>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Lead</th><th class="hide-s">Campaign</th><th>What they had asked</th><th>State</th></tr></thead>
+        <tbody id="abody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h">
+      <h2>Campaigns</h2>
+      <p>What each campaign promised is worth reading next to the shelf: three of the four offered
+        more contacts than fulfilment builds.</p>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr>
+          <th>Campaign</th><th>State</th><th class="r">Sent</th><th class="r">Replies</th>
+          <th class="r hide-s">Reply %</th><th class="r">Interested</th><th>Promised</th><th class="hide-s">Niche from</th>
+        </tr></thead>
+        <tbody id="cbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h">
+      <h2>Lists on the shelf</h2>
+      <p>Pre-built so fulfilment is pick-and-attach. Under 150 rows a list is held back rather than sent thin.</p>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Niche</th><th class="r">Rows</th><th class="r hide-s">Domains</th><th>Source</th><th class="hide-s">Contact fields</th><th>State</th></tr></thead>
+        <tbody id="lbody"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const LANE = {ready:'Ready', held:'Needs you', sent:'Sent'};
+const DEC = {approved:'Approved', skipped:'Skipped'};
+
+let D = null, decisions = {}, filter = 'ready', openId = null, term = '', writable = true;
+
+const FILTERS = [
+  ['ready','Ready to send', r => r.lane==='ready' && !decisions[r.id]],
+  ['held','Needs you', r => r.lane==='held'],
+  ['approved','Approved', r => (decisions[r.id]||{}).status==='approved'],
+  ['sent','Sent', r => r.lane==='sent'],
+  ['skipped','Skipped', r => (decisions[r.id]||{}).status==='skipped'],
+  ['all','Everything', () => true],
+];
+
+async function load(){
+  try{
+    const [dres, kres] = await Promise.all([
+      fetch('data.json?t=' + Date.now(), {cache:'no-store'}),
+      fetch('api/decisions?t=' + Date.now(), {cache:'no-store'}).catch(() => null),
+    ]);
+    if (!dres.ok) throw new Error('data.json returned ' + dres.status);
+    D = await dres.json();
+    if (kres && kres.ok) decisions = await kres.json();
+    else writable = false;
+    document.getElementById('live').textContent = '';
+    draw();
+  }catch(err){
+    document.getElementById('live').innerHTML =
+      '<span class="bad">· could not read the data, showing the last good copy</span>';
+    if (!D) document.getElementById('qbody').innerHTML =
+      `<tr><td colspan="6"><div class="empty"><strong>No data yet</strong>
+       Run <span class="mono-s">build-dashboard-data.py</span> to write data.json.</div></td></tr>`;
+  }
+}
+
+async function decide(id, status){
+  if (!writable) return;
+  try{
+    const res = await fetch('api/decisions', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({id: String(id), status})});
+    if (!res.ok) throw new Error(res.status);
+    decisions = await res.json();
+    openId = null; draw();
+  }catch(err){
+    document.getElementById('qnote').innerHTML =
+      '<span class="bad">That did not save. Nothing changed, try again.</span>';
+  }
+}
+
+function drawChips(){
+  document.getElementById('chips').innerHTML = FILTERS.map(([k,label,fn]) =>
+    `<button class="chip" data-f="${k}" aria-pressed="${filter===k}">${esc(label)} <span class="num">${D.staged.filter(fn).length}</span></button>`
+  ).join('') + `<input class="search" id="q" type="search" placeholder="Find a lead" value="${esc(term)}" aria-label="Find a lead">`;
+}
+
+function review(r){
+  const d = decisions[r.id] || {};
+  const acts = !writable ? '<span class="sub">Read-only: the decisions endpoint is not answering.</span>'
+    : r.lane === 'sent' ? '<span class="sub">Already sent. Nothing to decide.</span>'
+    : d.status ? `<button class="btn" data-a="" data-id="${r.id}">Reopen</button>`
+    : r.lane === 'ready'
+      ? `<button class="btn go" data-a="approved" data-id="${r.id}">Approve</button>
+         <button class="btn" data-a="skipped" data-id="${r.id}">Skip</button>`
+      : `<button class="btn" data-a="skipped" data-id="${r.id}">Close without replying</button>`;
+  return `<tr><td class="detail" colspan="6"><div class="rev">
+    ${r.lane==='held' ? `<div class="warn"><strong>Held for you:</strong> ${esc(r.why||'')}. No reply is
+      staged, because a rule should not answer this one.</div>` : ''}
+    <div>
+      <h3>What ${esc(r.name||'they')} wrote</h3>
+      <div class="said${r.reply?'':' none'}">${r.reply?esc(r.reply):'The reply body was not captured.'}</div>
+      <div class="sub" style="margin-top:7px">${esc(r.email)} · ${esc(r.company)} · received ${esc(r.received)}</div>
+    </div>
+    <div>
+      <h3>${r.body ? 'What goes back' : 'Nothing staged'}</h3>
+      <div class="said${r.body?'':' none'}">${r.body?esc(r.body):'This one needs a reply written by hand.'}</div>
+      ${r.attachment?`<div class="sub" style="margin-top:7px">Attached: <span class="mono-s">${esc(r.attachment)}</span></div>`:''}
+    </div>
+    <div class="rev-bar">
+      <span class="sub">${esc(r.campaign)} · reply ${esc(r.id)}${d.at?' · decided '+esc(String(d.at).slice(0,16).replace('T',' ')):''}</span>
+      <span class="spacer"></span>${acts}
+    </div>
+  </div></td></tr>`;
+}
+
+function drawRows(){
+  const fn = (FILTERS.find(f=>f[0]===filter)||FILTERS[FILTERS.length-1])[2];
+  const t = term.trim().toLowerCase();
+  const show = D.staged.filter(fn).filter(r => !t ||
+    [r.name,r.company,r.email,r.attachment].some(v => String(v||'').toLowerCase().includes(t)));
+  const body = document.getElementById('qbody');
+  if (!show.length){
+    body.innerHTML = `<tr><td colspan="6"><div class="empty"><strong>Nothing in this view</strong>
+      Try another filter, or clear the search.</div></td></tr>`;
+    return;
+  }
+  body.innerHTML = show.map(r => {
+    const d = decisions[r.id] || {};
+    const isOpen = String(r.id) === String(openId);
+    const main = `<tr class="qrow${isOpen?' open':''}" data-open="${r.id}">
+      <td class="caret">${isOpen?'▾':'▸'}</td>
+      <td><span class="co">${esc(r.name)}</span> <span class="sub">${esc(r.company)}</span>
+          <div class="mono-s">${esc(r.email)}</div></td>
+      <td class="sub hide-s">${esc(r.campaign)}<div class="mono-s">${esc(r.received)}</div></td>
+      <td>${r.attachment?`<span class="mono-s">${esc(r.attachment)}</span>`:'<span class="sub">no list</span>'}</td>
+      <td><span class="pill p-${r.lane==='ready'?'ready':(r.lane==='sent'?'sent':'held')}">${esc(LANE[r.lane])}</span>${
+        d.status?` <span class="pill p-${esc(d.status)}">${esc(DEC[d.status]||d.status)}</span>`:''}</td>
+      <td class="r sub">${isOpen?'open':'review'}</td></tr>`;
+    return isOpen ? main + review(r) : main;
+  }).join('');
+}
+
+function draw(){
+  if (!D) return;
+  document.getElementById('gen').textContent = D.generated.replace('T',' ').replace('+00:00','').slice(0,16) + ' UTC';
+  document.getElementById('nint').textContent = D.totals.interested;
+
+  document.getElementById('stale').innerHTML = (D.stale && D.stale.length)
+    ? `<div class="warn" style="margin-top:16px"><strong>Some figures are stale.</strong>
+       ${esc(D.stale.join('; '))}. Everything else on the page is current.</div>` : '';
+
+  const T = D.totals;
+  const approved = D.staged.filter(r => (decisions[r.id]||{}).status==='approved').length;
+  document.getElementById('tiles').innerHTML = [
+    ['Emails sent', T.sent.toLocaleString(), 'across all four campaigns', ''],
+    ['Interested replies', String(T.interested), T.replies.toLocaleString()+' replies in total', ''],
+    ['Ready to send', String(T.ready), 'reply written, thread untouched', 'hi'],
+    ['Needs you', String(T.held), 'a rule should not answer these', 'hi'],
+    ['Answered by the bot', String(T.answered), 'reached before we got there', 'warn-t'],
+    ['Approved, not yet sent', String(approved), T.sent_replies+' sent so far', ''],
+    ['Contacts on the shelf', T.list_rows.toLocaleString(), T.lists+' lists built', ''],
+  ].map(([k,v,n,cls]) => `<div class="tile${cls?' '+cls:''}"><div class="k">${esc(k)}</div>
+      <div class="v">${esc(v)}</div><div class="n">${esc(n)}</div></div>`).join('');
+
+  const st = document.getElementById('sbState');
+  st.innerHTML = D.sender_armed
+    ? '<span class="pill p-ready">armed</span>' : '<span class="pill p-paused">paused</span>';
+  document.getElementById('sbHint').textContent = D.sender_armed
+    ? 'scripts/sender.off is absent, so the sender will act on approvals.'
+    : 'scripts/sender.off is present. Nothing can send. Approvals still queue up.';
+  document.getElementById('sbCodes').textContent = D.gift_codes.unused;
+
+  document.getElementById('cbody').innerHTML = D.campaigns.map(c => `<tr>
+    <td><span class="co">${esc(c.name)}</span><div class="sub">${esc(c.full_name)}</div></td>
+    <td><span class="pill p-${esc(c.status)}">${esc(c.status)}</span></td>
+    <td class="r num">${c.sent.toLocaleString()}</td><td class="r num">${c.replies}</td>
+    <td class="r num hide-s">${c.reply_rate.toFixed(2)}</td><td class="r num">${c.interested}</td>
+    <td class="sub">${esc(c.promised)}</td><td class="mono-s hide-s">${esc(c.niche_var)}</td></tr>`).join('');
+
+  document.getElementById('lbody').innerHTML = D.lists.map(l => `<tr>
+    <td><span class="co">${esc(l.slug.replace(/-+/g,' '))}</span></td>
+    <td class="r num">${l.rows}</td><td class="r num hide-s">${l.domains}</td>
+    <td class="sub">${esc(l.source)}</td>
+    <td class="sub hide-s">${l.has_linkedin?'name, title, company, LinkedIn, city, email':'owner, business, website, phone, city, email'}</td>
+    <td>${l.ok?'<span class="pill p-ready">on shelf</span>':'<span class="pill p-held">held, thin</span>'}</td></tr>`).join('');
+
+  document.getElementById('abody').innerHTML = D.answered.map(a => `<tr>
+    <td><span class="co">${esc(a.name)}</span> <span class="sub">${esc(a.company)}</span><div class="mono-s">${esc(a.email)}</div></td>
+    <td class="sub hide-s">${esc(a.campaign)}</td>
+    <td class="sub">${esc(a.reply).slice(0,110)}</td>
+    <td><span class="pill p-answered">answered</span>${a.pushback?' <span class="pill p-skipped">pushed back</span>':''}</td></tr>`).join('')
+    || `<tr><td colspan="4"><div class="empty"><strong>Nothing here</strong>No thread was answered ahead of us.</div></td></tr>`;
+
+  const n = Object.values(decisions).filter(x => x.status === 'approved').length;
+  document.getElementById('qnote').textContent = n ? n + ' approved and waiting for the sender to run.' : '';
+
+  drawChips(); drawRows();
+}
+
+document.getElementById('chips').addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if(!b) return;
+  filter = b.dataset.f; draw();
+});
+document.getElementById('chips').addEventListener('input', e => {
+  if (e.target.id !== 'q') return;
+  term = e.target.value; drawRows();
+});
+document.getElementById('qbody').addEventListener('click', e => {
+  const row = e.target.closest('[data-open]');
+  if (row && !e.target.closest('button')){
+    openId = String(openId) === row.dataset.open ? null : row.dataset.open;
+    drawRows(); return;
+  }
+  const act = e.target.closest('button[data-a]');
+  if (act) decide(act.dataset.id, act.dataset.a);
+});
+
+load();
+setInterval(load, 60000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) load(); });
+</script>
+</body>
+</html>
