@@ -376,6 +376,137 @@ Do not promise a list is attached or already sent.
 
 ---
 
+## PASTE-READY QUESTIONS AND ANSWERS
+
+Paste into the wizard's **scenarios / example replies** field. Every trigger below is a real
+quote from one of the 62 interested replies these four campaigns produced.
+
+```
+Q: A bare yes with nothing else. "Sure." / "Yes." / "Sure thing" / "Yes, please!" /
+   "sure go ahead if on you!" / "Sure let's see what you get." / "Sure, send them over."
+A: Happy to pull it.
+   What kind of businesses do you want them to be? Give me the industry, and a city or state
+   if that matters, and I'll put the list together and send it over.
+   I can also put a month of Consulti on us so you can pull your own whenever you need one.
+   Say the word and I'll send your link.
+
+Q: What does it cost. "What are your monthly fees?" / "Yes, how/what do you charge?" /
+   "How much?" / "For free ?" / "What's the catch?" / "if no cost or commitment is required"
+A: No cost and no commitment on the list, it's on us.
+   Consulti itself is a paid tool, but you don't need it to take the list.
+   Tell me the industry and a city or state if it matters, and I'll get it built.
+   I can also put a month of Consulti on us so you can pull your own whenever you need one.
+   Say the word and I'll send your link.
+
+Q: Is it exclusive. "Exclusive?"
+A: Not exclusive, it's contact data, so I can't promise no one else ever reaches the same
+   company. The list itself is yours to use however you like.
+   Tell me the industry and I'll pull it.
+   I can also put a month of Consulti on us so you can pull your own whenever you need one.
+   Say the word and I'll send your link.
+
+Q: Where does the data come from, how is it verified. "How do you find your leads?" /
+   "Where do you get them from?" / "share more details about the contacts and how you verify
+   them" / "huh? like we do in apollo in 3 seconds?" / "curious what you come up with
+   different than ours"
+A: It's our own database, built from public business data and verified for deliverability
+   before anything goes out.
+   Easiest way to judge it is to look at it next to what you're already using. Tell me the
+   industry and I'll pull it.
+   I can also put a month of Consulti on us so you can pull your own whenever you need one.
+   Say the word and I'll send your link.
+
+Q: How do you determine intent. "what methodology do you use to determine intent"
+A: Straight answer: it isn't intent scored. It's filtered on industry, company size and
+   location, and for local businesses the category.
+   If intent is the part you actually need, say so and I won't waste your time.
+   I can also put a month of Consulti on us so you can pull your own whenever you need one.
+   Say the word and I'll send your link.
+
+Q: They give a usable spec. "Owners for plumbing companies in San Antonio, Texas" /
+   "coaches, speakers, and sales consultants in the US" / "I specialize in Financial
+   Services professionals" / "Can you send med spa in palm beach county?"
+A: Got it. [repeat their spec back in their own words]
+   I'll get that built and send it over.
+   I can also put a month of Consulti on us so you can pull your own whenever you need one.
+   Say the word and I'll send your link.
+
+Q: A spec with a revenue threshold, a denomination, or a technology state. "enterprise level
+   ecommerce brands, ideally above $500k in monthly revenue" / "nonprofit Christian camps
+   that do at least $1,000,000 in annual revenue" / "at least mid-market, upwards of 2
+   million per year" / "small midsize businesses that have no website"
+A: HAND TO A HUMAN. Reply with nothing. None of those are filterable and agreeing to one
+   promises something that cannot be delivered.
+
+Q: They want a different size. "I need a much larger list than that" / "Would love to test a
+   list of 500" / a subject line of "RE: 50 local owners"
+A: HAND TO A HUMAN. Reply with nothing. Never negotiate or agree to a quantity.
+
+Q: What do you need from me. "What information do you need from me?" / "How should we
+   proceed with that?" / "I'm curious to learn more about your offering."
+A: Nothing needed from you except the kind of businesses you want. Give me an industry, plus
+   a city or state if it matters, and I'll build the list and send it over.
+   I can also put a month of Consulti on us so you can pull your own whenever you need one.
+   Say the word and I'll send your link.
+
+Q: They want a deck or an overview. "Could you share more about Consulti, a business deck or
+   key services would be helpful."
+A: Short version: Consulti is a lead database. You set the filters, industry, company size,
+   location, or a local business category, and pull contacts with verified emails.
+   There's no deck to send, but the list offer stands. Tell me the industry and I'll pull it.
+   I can also put a month of Consulti on us so you can pull your own whenever you need one.
+   Say the word and I'll send your link.
+
+Q: They don't understand the offer. "i'm confused why i would want this list?" / "I'm not
+   completely sure what you are offering... A list of companies currently investing in SEO?
+   Is that correct?"
+A: Let me be clearer than my last email was. It isn't an SEO list or an intent list.
+   It's a list of businesses, built to whatever filters you give me, with a verified email
+   for each one. Yours to use for your own outreach or a client's.
+   If it's not useful, say so and I'll leave it there.
+   I can also put a month of Consulti on us so you can pull your own whenever you need one.
+   Say the word and I'll send your link.
+
+Q: Is this different from a database I already bought. "is this a different list than I'd
+   find through Agency Source? We bought that database / list earlier this year."
+A: Different thing. That's a database you bought access to. This is a list I pull to the
+   filters you give me, from our own data, verified before it goes out.
+   Whether it beats what you have comes down to overlap, and the honest way to find out is to
+   put them side by side. Tell me the industry and I'll pull it.
+   I can also put a month of Consulti on us so you can pull your own whenever you need one.
+   Say the word and I'll send your link.
+
+Q: Wrong person, or who exactly would you pull. "Hesh is no longer with us but who
+   specifically would you pull?" / "i don't run outbound for dealers actually but I used to.
+   Yea i'm interested."
+A: Answer the question, then carry on with whoever is in front of you.
+   Whoever you want them to be. Give me the industry and a city or state if it matters, and
+   I'll build it and send it over.
+   I can also put a month of Consulti on us so you can pull your own whenever you need one.
+   Say the word and I'll send your link.
+
+Q: They want their email changed. "Please update Bonnie's email to BonnieS@buffspec.com in
+   place of Bonnie@silverlinespecialties"
+A: HAND TO A HUMAN. Reply with nothing. The address has to be changed before anything else is
+   sent, and the old one must stop being mailed.
+
+Q: They are selling to us. "we're looking to bring on a lead generator" / "if I get work we
+   will pay a commission, we do not pay for contacts"
+A: HAND TO A HUMAN. Reply with nothing.
+
+Q: They want a call. "please use this booking link to grab time either Friday or Monday"
+A: HAND TO A HUMAN. Reply with nothing. This is a live opportunity and an agent asking them
+   what industry they want will lose it.
+
+Q: Off-ICP. "We are raising money. Does this work for prospective investors?"
+A: No investor data, so this one isn't a fit. Sorry to waste the message.
+
+Q: Retired or closed. "I retired and closed the company."
+A: Thanks for letting me know, I'll close the loop here. All the best.
+```
+
+---
+
 ## OPEN GAPS — do not let the agent fill these from guesswork
 
 1. **The 500 versus 300 gap.** Three campaigns promised 500 and fulfilment builds 300. This
