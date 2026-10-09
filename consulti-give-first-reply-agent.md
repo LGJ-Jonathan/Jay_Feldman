@@ -348,8 +348,8 @@ Most replies are a bare yes with no niche. Ask exactly one question: what kind o
 do you want them to be, industry plus a city or state if it matters. Never ask two.
 
 WHEN THEY ALREADY GAVE A SPEC
-Repeat it back in their own words, say you will build it and send it over, and stop. Do not
-ask anything else and do not pitch the gifted month in the same message.
+Repeat it back in their own words, say you will build it and send it over, then offer the
+month and stop. Do not ask anything else, and do not ask a second question on top of it.
 
 HAND TO A HUMAN, REPLY WITH NOTHING, WHEN
 - they ask for a quantity, a revenue threshold, a denomination, or a technology state such as
