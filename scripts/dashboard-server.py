@@ -29,6 +29,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 WEB = ROOT / "dashboard"
 DECISIONS = ROOT / "scripts" / "dashboard-decisions.json"
+TOKENS = ROOT / "scripts" / "list-tokens.json"
+LISTS = ROOT / "Leads" / "fulfillment" / "lists"
 VALID = {"approved", "skipped", ""}
 MAX_BODY = 4096
 LOCK = threading.Lock()
@@ -78,8 +80,35 @@ class Handler(BaseHTTPRequestHandler):
             return
         self._send(200, p.read_bytes(), ctype)
 
+    def _download(self, token):
+        """Serve one list to one prospect, by token. See scripts/mint-list-link.py."""
+        from datetime import datetime, timezone
+        try:
+            db = json.loads(TOKENS.read_text())
+        except Exception:
+            self._send(404, b"Not found", "text/plain; charset=utf-8"); return
+        rec = db.get("tokens", {}).get(token)
+        if not rec or rec.get("revoked"):
+            self._send(404, b"That link is not valid.", "text/plain; charset=utf-8"); return
+        if rec.get("expires") and rec["expires"] < datetime.now(timezone.utc).isoformat():
+            self._send(410, b"That link has expired. Reply and I'll send a fresh one.",
+                       "text/plain; charset=utf-8"); return
+        f = LISTS / rec["list"]
+        if not f.is_file():
+            self._send(404, b"Not found", "text/plain; charset=utf-8"); return
+        with LOCK:                      # record the fetch, capped so it cannot grow forever
+            rec.setdefault("fetches", []).append(
+                datetime.now(timezone.utc).isoformat(timespec="seconds"))
+            rec["fetches"] = rec["fetches"][-20:]
+            tmp = TOKENS.with_suffix(".json.tmp")
+            tmp.write_text(json.dumps(db, indent=1)); tmp.replace(TOKENS)
+        self._send(200, f.read_bytes(), "text/csv; charset=utf-8",
+                   {"Content-Disposition": f'attachment; filename="{rec["list"]}"'})
+
     def do_GET(self):
         path = self.path.split("?", 1)[0].rstrip("/") or "/"
+        if path.startswith("/d/"):
+            self._download(path[3:]); return
         if path == "/":
             self._file("index.html", "text/html; charset=utf-8")
         elif path == "/data.json":

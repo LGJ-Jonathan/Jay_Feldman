@@ -8,3 +8,7 @@ dashboard/data.json.tmp
 
 # Rebuilt by scripts/cache-sender-emails.py; it is a cache, not a source of truth.
 scripts/sender-emails.json
+
+# Per-prospect download tokens: carries prospect email addresses.
+scripts/list-tokens.json
+scripts/list-tokens.json.tmp
