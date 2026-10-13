@@ -12,3 +12,9 @@ scripts/sender-emails.json
 # Per-prospect download tokens: carries prospect email addresses.
 scripts/list-tokens.json
 scripts/list-tokens.json.tmp
+.env.n8n
+
+# Reply-agent runtime state: carries prospect emails and sent attachments.
+scripts/list-demand.json
+scripts/sent-log.json
+scripts/dashboard-decisions.json
